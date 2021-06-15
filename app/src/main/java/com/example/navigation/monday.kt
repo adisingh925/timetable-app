@@ -28,7 +28,7 @@ class monday : AppCompatActivity()
 
     private lateinit var notificationmanager1: NotificationManager
 
-    private val groupId_1_id =  "group11"
+    private val groupId_1_id =  "group1"
     private val groupId_2_id =  "group2"
     private val groupId_1_name =  "Days_foreground_channel"
     private val groupId_2_name =  "Days_background_channel"
