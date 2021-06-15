@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "152642296548",
+    "project_id": "timetable-af218",
+    "storage_bucket": "timetable-af218.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152642296548:android:f5045a98375329c2be6af1",
+        "android_client_info": {
+          "package_name": "com.example.navigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152642296548-6go68blk2htakf54ttvd00069mabkcad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXARUNBRdJSB9J-IvCKvxPPzlWD6KpFLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152642296548-6go68blk2htakf54ttvd00069mabkcad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

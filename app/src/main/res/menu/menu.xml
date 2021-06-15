@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <item android:title = "Day">
+       <menu>
+    <item
+
+        android:title = "Sunday"
+        android:id = "@+id/sunday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Monday"
+        android:id = "@+id/monday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Tuesday"
+        android:id = "@+id/tuesday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Wednesday"
+        android:id = "@+id/wednesday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Thursday"
+        android:id = "@+id/thursday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Friday"
+        android:id = "@+id/friday"
+        android:icon = "@drawable/day"
+        />
+
+    <item
+
+        android:title = "Saturday"
+        android:id = "@+id/saturday"
+        android:icon = "@drawable/day"
+        />
+
+       </menu>
+   </item>
+
+    <item android:title = "Communication">
+
+        <menu>
+    <item
+        android:title = "Explore"
+        android:id = "@+id/explore"
+        android:icon="@drawable/explore"
+        />
+    <item
+        android:title = "Setting"
+        android:id = "@+id/settings"
+        android:icon="@drawable/setting"
+        />
+
+    <item
+        android:title = "User"
+        android:id = "@+id/user"
+        android:icon="@drawable/user"
+        />
+
+        </menu>
+
+    </item>
+</menu>

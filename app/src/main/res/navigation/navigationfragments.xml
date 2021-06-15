@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigationfragments"
+    app:startDestination="@id/user">
+
+    <activity
+        android:id="@+id/sunday"
+        android:name="com.example.navigation.sunday"
+        android:label="activity_sunday"
+        tools:layout="@layout/activity_sunday" />
+    <activity
+        android:id="@+id/monday"
+        android:name="com.example.navigation.monday"
+        android:label="activity_monday"
+        tools:layout="@layout/activity_monday" />
+    <activity
+        android:id="@+id/tuesday"
+        android:name="com.example.navigation.tuesday"
+        android:label="activity_tuesday"
+        tools:layout="@layout/activity_tuesday" />
+    <activity
+        android:id="@+id/wednesday"
+        android:name="com.example.navigation.wednesday"
+        android:label="activity_wednesday"
+        tools:layout="@layout/activity_wednesday" />
+    <activity
+        android:id="@+id/thursday"
+        android:name="com.example.navigation.thursday"
+        android:label="activity_thursday"
+        tools:layout="@layout/activity_thursday" />
+    <activity
+        android:id="@+id/friday"
+        android:name="com.example.navigation.friday"
+        android:label="activity_friday"
+        tools:layout="@layout/activity_friday" />
+    <activity
+        android:id="@+id/saturday"
+        android:name="com.example.navigation.saturday"
+        android:label="activity_saturday"
+        tools:layout="@layout/activity_saturday" />
+    <activity
+        android:id="@+id/explore"
+        android:name="com.example.navigation.explore"
+        android:label="activity_explore"
+        tools:layout="@layout/activity_explore" />
+    <activity
+        android:id="@+id/settings"
+        android:name="com.example.navigation.settings"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
+    <fragment
+        android:id="@+id/user"
+        android:name="com.example.navigation.user"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+</navigation>
