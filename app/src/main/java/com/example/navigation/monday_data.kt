@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,6 +26,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import java.util.*
 
 
 class monday_data : AppCompatActivity() {
@@ -140,6 +142,54 @@ class monday_data : AppCompatActivity() {
                 }).check()
 
         }
+
+        val swipeflag = ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
+        val dragflag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(dragflag, swipeflag) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val startposition = viewHolder.adapterPosition
+                val endposition = target.adapterPosition
+                Collections.swap(names, startposition, endposition)
+                rcv1.notifyItemMoved(startposition, endposition)
+
+                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                deletedata.delete()
+                value=1
+
+                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                for(m in 1..(names.lastIndex+1))
+                {
+                    val update = hashMapOf("$m" to names[m-1].time)
+                    rewritedata.set(update, SetOptions.merge())
+                    value++
+                }
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val temp = position+1
+                names.removeAt(position)
+                rcv1.notifyItemRemoved(position)
+                rcv1.notifyDataSetChanged()
+                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                deletedata.delete()
+                value=1
+
+                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                for(m in 1..(names.lastIndex+1))
+                {
+                    val update = hashMapOf("$m" to names[m-1].time)
+                    rewritedata.set(update, SetOptions.merge())
+                    value++
+                }
+            }
+        }).attachToRecyclerView(rcv)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
