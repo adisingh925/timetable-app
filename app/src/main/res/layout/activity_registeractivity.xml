@@ -12,29 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:layout_marginTop="30dp"
-            android:textSize="20sp"
-            android:layout_below="@id/textView5"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="70dp"/>
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="70dp"
-            android:textSize="20sp"
-            android:layout_below="@id/textView5"
-            android:layout_alignParentRight="true"/>
-
-        <TextView
+                <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,6 +88,9 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:text="Register"
+            android:backgroundTint="#668658"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="50dp"/>

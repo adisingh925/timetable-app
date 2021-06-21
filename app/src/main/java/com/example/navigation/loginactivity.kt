@@ -30,7 +30,7 @@ class loginactivity : AppCompatActivity()
 
         val pass = findViewById<EditText>(R.id.editTextTextPassword)
 
-        val register = findViewById<Chip>(R.id.chip5)
+        val register = findViewById<Button>(R.id.button22)
 
         val resetp = findViewById<TextView>(R.id.textView6)
 

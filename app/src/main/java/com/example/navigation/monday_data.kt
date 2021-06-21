@@ -140,6 +140,13 @@ class monday_data : AppCompatActivity() {
                 rcv1.notifyDataSetChanged()
                 progbar.isVisible = false
                 upload.isVisible = true
+                val cc = hashMapOf("$value" to syst)
+                db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(cc,
+                    SetOptions.merge())
+                val cp = hashMapOf("value" to value)
+                db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(cp,
+                    SetOptions.merge())
+                value++
             }
                 .addOnFailureListener()
                 {

@@ -32,14 +32,7 @@ class registeractivity : AppCompatActivity()
 
         val register = findViewById<Button>(R.id.button7)
 
-        val signin = findViewById<Chip>(R.id.chip4)
-
         val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
-
-        signin.setOnClickListener()
-        {
-            finish()
-        }
 
         register.setOnClickListener()
         {
