@@ -1,9 +1,7 @@
 package com.example.navigation
 
-import android.app.NotificationChannel
-import android.app.NotificationChannelGroup
-import android.app.NotificationManager
-import android.app.ProgressDialog
+import android.app.*
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -11,11 +9,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
 import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -34,9 +34,9 @@ import java.util.jar.Manifest
 
 class monday_data : AppCompatActivity() {
 
-    val storage = Firebase.storage
+    val storageref = FirebaseStorage.getInstance().reference
 
-
+    lateinit var uri:Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,13 +59,33 @@ class monday_data : AppCompatActivity() {
                     override fun onPermissionGranted(response: PermissionGrantedResponse)
                     {
                         val intent = Intent()
-                        intent.setType("image/*")
+                        intent.setType("application/pdf")
                         intent.setAction(Intent.ACTION_GET_CONTENT)
-                        startActivityForResult(Intent.createChooser(intent,"select files"),12)
+                        startActivityForResult(Intent.createChooser(intent,"select pdf files"),1212)
                     }
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse)
                     {
+                        val builder = AlertDialog.Builder(this@monday_data)
+                            builder.setTitle("Need Permission")
+                                .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
+                                .setPositiveButton("go to settings",DialogInterface.OnClickListener
+                                {
+                                    dialog, id ->
+
+                                    val inte = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                    val uri = Uri.fromParts("package",packageName,null)
+                                    inte.setData(uri)
+                                    startActivityForResult(inte,101)
+
+                                })
+                                .setNegativeButton("cancel",DialogInterface.OnClickListener{
+                                    dialog, which ->
+
+                                    dialog.cancel()
+                                })
+
+                        builder.show()
 
                     }
 
@@ -83,18 +103,16 @@ class monday_data : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(resultCode == 12 && resultCode == RESULT_OK && data!=null && data.getData()!=null)
+        if(resultCode == RESULT_OK)
         {
-            var imageview = findViewById<ImageView>(R.id.imageView)
-            val inputstream = contentResolver.openInputStream(data.getData()!!)
-            val bitmap = BitmapFactory.decodeStream(inputstream)
-            imageview.setImageBitmap(bitmap)
+            if (data != null) {
+                uri = data.data!!
+            }
 
-            val pdf:Uri = data.getData()!!
-            val storageref = FirebaseStorage.getInstance().getReference()
+            var riversRef = storageref.child("uploads/"+System.currentTimeMillis()+".pdf")
 
-            val filepath = storageref.child("image1").putFile(pdf)
-            filepath.addOnSuccessListener()
+            riversRef.putFile(uri)
+                .addOnSuccessListener()
             {
                 Toast.makeText(this,"file upload success",Toast.LENGTH_SHORT)
             }
@@ -104,4 +122,5 @@ class monday_data : AppCompatActivity() {
                 }
         }
     }
+
 }
