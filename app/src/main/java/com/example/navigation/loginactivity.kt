@@ -41,7 +41,7 @@ class loginactivity : AppCompatActivity()
 
         val checkbox = findViewById<CheckBox>(R.id.checkBox)
 
-        val docref = db.collection(auth.uid.toString()).document("login credential")
+        val docref = db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials")
 
         docref.get().addOnSuccessListener()
         {document ->
@@ -60,11 +60,11 @@ class loginactivity : AppCompatActivity()
         {
             if(checkbox.isChecked)
             {
-                db.collection(auth.uid.toString()).document("login credential").update("status", "true")
+                db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials").update("status", "true")
             }
             else if(!checkbox.isChecked)
             {
-                db.collection(auth.uid.toString()).document("login credential").update("status", "false")
+                db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials").update("status", "false")
             }
         }
 

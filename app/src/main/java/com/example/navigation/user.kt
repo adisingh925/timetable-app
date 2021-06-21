@@ -43,7 +43,7 @@ class user : Fragment() {
         val y = view?.findViewById<TextView>(R.id.textview1)
         val hh = view?.findViewById<TextView>(R.id.textview5)
 
-        val z = db.collection(auth.uid.toString()).document("login credential")
+        val z = db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials")
         z.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 if (y != null) {

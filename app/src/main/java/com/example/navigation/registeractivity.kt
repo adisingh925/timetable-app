@@ -75,7 +75,7 @@ class registeractivity : AppCompatActivity()
                         if (task.isSuccessful) {
 
                             val data = hashMapOf("username" to username.text.toString(), "email" to email1.text.toString(), "password" to password1.text.toString(), "status" to "false")
-                            db.collection(auth.uid.toString()).document("login credential").set(data)
+                            db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials").set(data)
 
                             Toast.makeText(
                                 this@registeractivity, "Authentication successful.",
