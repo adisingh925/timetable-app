@@ -11,7 +11,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.karumi.dexter.Dexter.*
 import com.karumi.dexter.PermissionToken
@@ -23,7 +29,15 @@ import com.karumi.dexter.listener.single.PermissionListener
 
 class monday_data : AppCompatActivity() {
 
+    private var names = mutableListOf<filenames>()
+
+    private var rcv1 = myadapter1(names)
+
     val storageref = FirebaseStorage.getInstance().reference
+
+    val db = Firebase.firestore
+
+    val auth = Firebase.auth
 
     lateinit var uri:Uri
 
@@ -31,9 +45,13 @@ class monday_data : AppCompatActivity() {
 
     lateinit var upload:FloatingActionButton
 
+    var value = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monday_data)
+
+        var rcv = findViewById<RecyclerView>(R.id.recyclerview1)
 
         val back = findViewById<ImageButton>(R.id.imageview)
 
@@ -42,6 +60,9 @@ class monday_data : AppCompatActivity() {
         progbar = findViewById(R.id.progressBar)
 
         progbar.isVisible = false
+
+        rcv.adapter = rcv1
+        rcv.layoutManager = LinearLayoutManager(this)
 
         back.setOnClickListener()
         {
@@ -106,7 +127,8 @@ class monday_data : AppCompatActivity() {
                 uri = data.data!!
             }
 
-            var riversRef = storageref.child("uploads/"+System.currentTimeMillis()+".pdf")
+            var syst = System.currentTimeMillis()
+            var riversRef = storageref.child("uploads/$syst.pdf")
             upload.isVisible = false
             progbar.isVisible = true
 
@@ -114,6 +136,8 @@ class monday_data : AppCompatActivity() {
                 .addOnSuccessListener()
             {
                 Toast.makeText(this,"Upload Success",Toast.LENGTH_SHORT).show()
+                names.add(filenames(syst))
+                rcv1.notifyDataSetChanged()
                 progbar.isVisible = false
                 upload.isVisible = true
             }
