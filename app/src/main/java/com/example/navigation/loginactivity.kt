@@ -107,6 +107,7 @@ class loginactivity : AppCompatActivity()
                                 Intent(this@loginactivity, MainActivity::class.java)
                             intent.putExtra("name", name.text.toString())
                             startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@loginactivity, "Authentication failed.",
