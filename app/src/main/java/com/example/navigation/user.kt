@@ -66,7 +66,7 @@ class user : Fragment() {
         if (imageview != null) {
             Glide
                 .with(this)
-                .load("https://specials-images.forbesimg.com/imageserve/5d3703e2f1176b00089761a6/960x0.jpg?cropX1=836&cropX2=5396&cropY1=799&cropY2=3364")
+                .load("https://firebasestorage.googleapis.com/v0/b/timetable-af218.appspot.com/o/WhatsApp%20Image%202021-06-20%20at%207.22.46%20PM.jpeg?alt=media&token=5f059c79-ec20-427f-9ca0-101767f3f615")
                 .circleCrop()
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageview)

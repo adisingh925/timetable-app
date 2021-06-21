@@ -113,13 +113,13 @@ class monday_data : AppCompatActivity() {
             riversRef.putFile(uri)
                 .addOnSuccessListener()
             {
-                Toast.makeText(this,"file upload success",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Upload Success",Toast.LENGTH_SHORT).show()
                 progbar.isVisible = false
                 upload.isVisible = true
             }
                 .addOnFailureListener()
                 {
-                    Toast.makeText(this,"file upload failed",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Upload Failed",Toast.LENGTH_SHORT).show()
                     progbar.isVisible = false
                     upload.isVisible = true
                 }
