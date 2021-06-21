@@ -64,6 +64,30 @@ class monday_data : AppCompatActivity() {
         rcv.adapter = rcv1
         rcv.layoutManager = LinearLayoutManager(this)
 
+        var jumbo = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+        jumbo.get().addOnSuccessListener()
+        {
+    document ->
+    if(document.exists())
+    {
+        for(i in 1..100)
+        {
+            if(document.getString("$i")!=null)
+            {
+                var gk = document.getString("$i").toString()
+                names.add(filenames(gk))
+                rcv1.notifyDataSetChanged()
+                value++
+            }
+            else
+            {
+                break
+            }
+        }
+    }
+}
+
+
         back.setOnClickListener()
         {
             finish()
@@ -127,7 +151,7 @@ class monday_data : AppCompatActivity() {
                 uri = data.data!!
             }
 
-            var syst = System.currentTimeMillis()
+            var syst = System.currentTimeMillis().toString()
             var riversRef = storageref.child("uploads/$syst.pdf")
             upload.isVisible = false
             progbar.isVisible = true
