@@ -29,13 +29,15 @@ class monday_data : AppCompatActivity() {
 
     lateinit var progbar:ProgressBar
 
+    lateinit var upload:FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monday_data)
 
         val back = findViewById<ImageButton>(R.id.imageview)
 
-        val upload = findViewById<FloatingActionButton>(R.id.floatingActionButton2)
+        upload = findViewById<FloatingActionButton>(R.id.floatingActionButton2)
 
         progbar = findViewById(R.id.progressBar)
 
@@ -105,6 +107,7 @@ class monday_data : AppCompatActivity() {
             }
 
             var riversRef = storageref.child("uploads/"+System.currentTimeMillis()+".pdf")
+            upload.isVisible = false
             progbar.isVisible = true
 
             riversRef.putFile(uri)
@@ -112,11 +115,13 @@ class monday_data : AppCompatActivity() {
             {
                 Toast.makeText(this,"file upload success",Toast.LENGTH_SHORT).show()
                 progbar.isVisible = false
+                upload.isVisible = true
             }
                 .addOnFailureListener()
                 {
                     Toast.makeText(this,"file upload failed",Toast.LENGTH_SHORT).show()
                     progbar.isVisible = false
+                    upload.isVisible = true
                 }
         }
     }
