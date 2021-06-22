@@ -50,7 +50,7 @@ class myadapter1(val names: List<filenames>): RecyclerView.Adapter<myadapter1.my
                     val options: Bundle? = null
                     startActivity(itemView.context,inte,options)
                 }
-                Toast.makeText(itemView.context,"you clicked item ${adapterPosition + 1}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context,"Initiating Download...", Toast.LENGTH_SHORT).show()
             }
         }
 
