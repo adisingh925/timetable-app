@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
@@ -28,6 +29,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.coroutines.delay
 import java.io.File
 import java.util.*
 
@@ -49,11 +51,17 @@ class monday_data : AppCompatActivity() {
 
     lateinit var upload:FloatingActionButton
 
+    lateinit var uploaded:TextView
+
     var value = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monday_data)
+
+        uploaded = findViewById(R.id.textview54)
+
+        uploaded.isVisible = false
 
         var rcv = findViewById<RecyclerView>(R.id.recyclerview1)
 
@@ -237,6 +245,17 @@ class monday_data : AppCompatActivity() {
                     progbar.isVisible = false
                     upload.isVisible = true
                 }
+                .addOnProgressListener()
+                {
+                    progress->
+                    uploaded.isVisible = true
+                    uploaded.text = ((100 * progress.bytesTransferred)/(progress.totalByteCount)).toString()+"%"
+                    if(uploaded.text == "100%")
+                    {
+                        uploaded.isVisible = false
+                    }
+                }
+
         }
 
     }
