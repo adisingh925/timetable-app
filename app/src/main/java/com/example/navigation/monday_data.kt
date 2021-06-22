@@ -1,6 +1,7 @@
 package com.example.navigation
 
 import android.app.*
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,8 +28,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import java.io.File
 import java.util.*
-
 
 class monday_data : AppCompatActivity() {
 
@@ -220,7 +222,14 @@ class monday_data : AppCompatActivity() {
                 val cp = hashMapOf("value" to value)
                 db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(cp,
                     SetOptions.merge())
+                storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
+                {uril ->
+                    var ty = hashMapOf("link${value-1}" to uril.toString())
+                    db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(ty,
+                        SetOptions.merge())
+                }
                 value++
+
             }
                 .addOnFailureListener()
                 {
@@ -229,6 +238,7 @@ class monday_data : AppCompatActivity() {
                     upload.isVisible = true
                 }
         }
+
     }
 
 }
