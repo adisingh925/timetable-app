@@ -24,7 +24,7 @@ class passwordresetactivity : AppCompatActivity() {
 
         val butto = findViewById<Button>(R.id.button8)
 
-        val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
+        //val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
 
         butto.setOnClickListener()
         {
@@ -39,7 +39,7 @@ class passwordresetactivity : AppCompatActivity() {
                 x++
             }
 
-            if(!emm.text.toString().matches(confi) && x==0)
+           /* if(!emm.text.toString().matches(confi) && x==0)
             {
                 Toast.makeText(
                     this@passwordresetactivity,
@@ -47,7 +47,7 @@ class passwordresetactivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 x++
-            }
+            }*/
             if(x==0) {
                 auth.sendPasswordResetEmail(emm.text.toString()).addOnCompleteListener(this)
                 { task ->

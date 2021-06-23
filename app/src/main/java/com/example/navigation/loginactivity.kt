@@ -42,7 +42,7 @@ class loginactivity : AppCompatActivity()
         }
         else if(auth.currentUser == null) {
 
-            val emailpattern = "[a-zA-Z0-9._]+@[a-zA-Z]+.com".toRegex()
+           // val emailpattern = "[a-zA-Z0-9._]+@[a-zA-Z]+.com".toRegex()
 
             val checkbox = findViewById<CheckBox>(R.id.checkBox)
 
@@ -86,7 +86,7 @@ class loginactivity : AppCompatActivity()
                     x++;
                 }
 
-                if (name.text.toString().matches(emailpattern) == false && x == 0) {
+               /* if (name.text.toString().matches(emailpattern) == false && x == 0) {
                     Toast.makeText(
                         this@loginactivity, "please enter valid email address",
                         Toast.LENGTH_SHORT
@@ -95,7 +95,7 @@ class loginactivity : AppCompatActivity()
                     name.text = null
 
                     x++
-                }
+                }*/
 
                 if (x == 0) {
                     auth.signInWithEmailAndPassword(name.text.toString(), pass.text.toString())

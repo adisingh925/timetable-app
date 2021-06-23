@@ -32,7 +32,7 @@ class registeractivity : AppCompatActivity()
 
         val register = findViewById<Button>(R.id.button7)
 
-        val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
+       // val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
 
         register.setOnClickListener()
         {
@@ -47,7 +47,7 @@ class registeractivity : AppCompatActivity()
                 x++
             }
 
-            if(!email1.text.toString().matches(confi) && x==0)
+          /*  if(!email1.text.toString().matches(confi) && x==0)
             {
                 Toast.makeText(
                     this@registeractivity, "Invalid Email Format",
@@ -55,7 +55,7 @@ class registeractivity : AppCompatActivity()
                 ).show()
 
                 x++
-            }
+            }*/
 
 
             if(x==0) {
