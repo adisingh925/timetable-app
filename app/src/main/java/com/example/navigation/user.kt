@@ -89,7 +89,7 @@ class user : Fragment() {
 
         imageview = view?.findViewById<ImageView>(R.id.imageview)!!
          if (imageview != null) {
-            Glide
+                 Glide
                 .with(this)
                 .load(R.drawable.tapme)
                 .circleCrop()
@@ -161,7 +161,6 @@ class user : Fragment() {
                     .into(imageview)
             }
         }
-
     }
 }
 
