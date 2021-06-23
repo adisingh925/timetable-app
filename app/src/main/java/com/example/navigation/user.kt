@@ -88,14 +88,6 @@ class user : Fragment() {
         }
 
         imageview = view?.findViewById<ImageView>(R.id.imageview)!!
-         if (imageview != null) {
-                 Glide
-                .with(this)
-                .load(R.drawable.tapme)
-                .circleCrop()
-                .placeholder(R.drawable.image_placeholder)
-                .into(imageview)
-        }
         imageview?.setOnClickListener()
         {
             Dexter.withContext(imageview.context)
