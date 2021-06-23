@@ -1,7 +1,6 @@
 package com.example.navigation
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -10,26 +9,23 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.DexterBuilder
-import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
-import java.net.URI
-import java.security.Permission
-import kotlin.concurrent.fixedRateTimer
 
 
 class user : Fragment() {
@@ -64,6 +60,14 @@ class user : Fragment() {
         val y = view?.findViewById<TextView>(R.id.textview1)
         val hh = view?.findViewById<TextView>(R.id.textview5)
 
+
+        view?.findViewById<Button>(R.id.button3)?.setOnClickListener()
+        {
+            auth.signOut()
+            val inte = Intent(this@user.context,loginactivity::class.java)
+            startActivity(inte)
+        }
+
         val z = db.collection("user data").document("user data").collection(auth.uid.toString())
             .document("login credentials")
         z.get().addOnSuccessListener { document ->
@@ -84,16 +88,14 @@ class user : Fragment() {
         }
 
         imageview = view?.findViewById<ImageView>(R.id.imageview)!!
-
-        if (imageview != null) {
+         if (imageview != null) {
             Glide
                 .with(this)
-                .load("https://firebasestorage.googleapis.com/v0/b/timetable-af218.appspot.com/o/WhatsApp%20Image%202021-06-20%20at%207.22.46%20PM.jpeg?alt=media&token=5f059c79-ec20-427f-9ca0-101767f3f615")
+                .load(R.drawable.tapme)
                 .circleCrop()
                 .placeholder(R.drawable.image_placeholder)
                 .into(imageview)
         }
-
         imageview?.setOnClickListener()
         {
             Dexter.withContext(imageview.context)
@@ -144,7 +146,9 @@ class user : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+
         if (resultCode == AppCompatActivity.RESULT_OK) {
+            Toast.makeText(this@user.context,"Upload Success", Toast.LENGTH_SHORT).show()
             if (data != null) {
                 uri = data.data!!
             }
@@ -153,7 +157,7 @@ class user : Fragment() {
                     .with(this)
                     .load(uri.toString())
                     .circleCrop()
-                    .placeholder(R.drawable.image_placeholder)
+                    .placeholder(R.drawable.placeholder)
                     .into(imageview)
             }
         }
