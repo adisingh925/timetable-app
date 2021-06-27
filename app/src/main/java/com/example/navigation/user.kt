@@ -18,8 +18,11 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -33,9 +36,13 @@ class user : Fragment() {
     var db = Firebase.firestore
     var auth = Firebase.auth
 
+    val storageref = FirebaseStorage.getInstance().reference
+
     lateinit var uri:Uri
 
     lateinit var imageview:ImageView
+
+    lateinit var king:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,14 +147,34 @@ class user : Fragment() {
 
 
         if (resultCode == AppCompatActivity.RESULT_OK) {
-            Toast.makeText(this@user.context,"Upload Success", Toast.LENGTH_SHORT).show()
             if (data != null) {
                 uri = data.data!!
+                var syst = System.currentTimeMillis()
+                var imgref = storageref.child("uploads/$syst.pdf")
+                imgref.putFile(uri).addOnSuccessListener()
+                {
+                    Toast.makeText(this@user.context,"Upload Success",Toast.LENGTH_SHORT).show()
+
+                    storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
+                    {
+                            url ->
+
+                        var hmp = hashMapOf("imgpath" to url.toString())
+                        db.collection("user data").document("user data").collection(auth.uid.toString())
+                            .document("login credentials").set(hmp, SetOptions.merge())
+
+                    }
+                }
+                    .addOnFailureListener()
+                    {
+                        Toast.makeText(this@user.context,"Upload Failed",Toast.LENGTH_SHORT).show()
+                    }
+
             }
             if (imageview != null) {
                 Glide
                     .with(this)
-                    .load(uri.toString())
+                    .load(uri)
                     .circleCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(imageview)
