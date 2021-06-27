@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 class loginactivity : AppCompatActivity()
 {
@@ -17,6 +18,14 @@ class loginactivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginactivity)
+
+        Firebase.messaging.subscribeToTopic("weather")
+            .addOnCompleteListener { task ->
+                var msg = "success"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+            }
 
         var flag = 0
 
