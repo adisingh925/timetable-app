@@ -4,9 +4,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.net.Uri
 import android.os.Build
+import android.widget.ImageView
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.toBitmap
+import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
 
@@ -14,12 +18,11 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
-        p0.notification?.title?.let { p0.notification!!.body?.let { it1 -> firebasemsg(it, it1) } }
+        p0.notification?.body?.let { p0.notification?.title?.let { it1 -> firebasemsg(it1, it) } }
     }
 
     fun firebasemsg(title:String, msg:String)
     {
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             val channel99 = NotificationChannel("firebasemessage","firebasenotification",NotificationManager.IMPORTANCE_HIGH)
@@ -36,6 +39,5 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
 
         notificationmanager99.notify(10012,builder.build())
-
     }
 }
