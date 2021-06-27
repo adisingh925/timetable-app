@@ -2,19 +2,21 @@ package com.example.navigation
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.net.Uri
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
-import android.widget.ImageView
 import androidx.core.app.NotificationCompat
-import androidx.core.graphics.drawable.toBitmap
-import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import java.io.IOException
+import java.net.URL
 
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     lateinit var notificationmanager99:NotificationManager
+
+    lateinit var image:Bitmap
 
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
@@ -23,6 +25,14 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     fun firebasemsg(title:String, msg:String)
     {
+
+        try {
+            val url = URL("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg")
+            image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+        } catch (e: IOException) {
+            System.out.println(e)
+        }
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             val channel99 = NotificationChannel("firebasemessage","firebasenotification",NotificationManager.IMPORTANCE_HIGH)
@@ -35,6 +45,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         builder.setContentText(msg)
         builder.setContentTitle(title)
         builder.setSmallIcon(R.drawable.setting)
+        builder.setLargeIcon(image)
+        builder.setStyle(NotificationCompat.BigPictureStyle()
+                .bigPicture(image))
         builder.setAutoCancel(true)
 
 
