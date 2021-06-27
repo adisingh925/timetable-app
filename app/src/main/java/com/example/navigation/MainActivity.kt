@@ -24,14 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Firebase.messaging.subscribeToTopic("weather")
-            .addOnCompleteListener { task ->
-                var msg = "Done"
-                if (!task.isSuccessful) {
-                    msg = "Failed"
-                }
-            }
-
       /*  val calendar = Calendar.getInstance()
 
         val day = calendar.get(Calendar.DAY_OF_WEEK)
