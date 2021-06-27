@@ -83,7 +83,13 @@ class monday : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monday)
 
-
+        Firebase.messaging.subscribeToTopic("weather")
+            .addOnCompleteListener { task ->
+                var msg = "success"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+            }
 
         val textvieww = findViewById<TextView>(R.id.textview1)
         textvieww.text = "Monday"

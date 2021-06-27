@@ -1,9 +1,7 @@
 package com.example.navigation
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,8 +10,6 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
