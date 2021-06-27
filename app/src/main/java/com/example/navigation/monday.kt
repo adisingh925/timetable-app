@@ -17,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,6 +82,8 @@ class monday : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monday)
+
+
 
         val textvieww = findViewById<TextView>(R.id.textview1)
         textvieww.text = "Monday"
