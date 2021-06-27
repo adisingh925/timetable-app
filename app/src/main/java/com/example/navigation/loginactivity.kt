@@ -19,14 +19,6 @@ class loginactivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginactivity)
 
-        Firebase.messaging.subscribeToTopic("weather")
-            .addOnCompleteListener { task ->
-                var msg = "success"
-                if (!task.isSuccessful) {
-                    msg = "Failed"
-                }
-            }
-
         var flag = 0
 
         auth = Firebase.auth
