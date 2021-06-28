@@ -45,9 +45,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         builder.setContentText(msg)
         builder.setContentTitle(title)
         builder.setSmallIcon(R.drawable.setting)
-       // builder.setLargeIcon(image)
+        builder.setLargeIcon(image)
         builder.setStyle(NotificationCompat.BigPictureStyle()
-                .bigPicture(image))
+        .bigPicture(image))
         builder.setAutoCancel(true)
 
 
