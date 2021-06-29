@@ -27,7 +27,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     {
 
         try {
-            val url = URL("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg")
+            val url = URL("https://stimg.cardekho.com/images/carexteriorimages/930x620/Ferrari/F8-Tributo/7945/1598599471404/front-left-side-47.jpg")
             image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
         } catch (e: IOException) {
             System.out.println(e)
