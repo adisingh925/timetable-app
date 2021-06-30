@@ -26,12 +26,12 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     fun firebasemsg(title:String, msg:String)
     {
 
-        try {
+      /*  try {
             val url = URL("https://stimg.cardekho.com/images/carexteriorimages/930x620/Ferrari/F8-Tributo/7945/1598599471404/front-left-side-47.jpg")
             image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
         } catch (e: IOException) {
             System.out.println(e)
-        }
+        }*/
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -45,9 +45,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         builder.setContentText(msg)
         builder.setContentTitle(title)
         builder.setSmallIcon(R.drawable.setting)
-       //builder.setLargeIcon(image)
-        builder.setStyle(NotificationCompat.BigPictureStyle()
-        .bigPicture(image))
         builder.setAutoCancel(true)
 
 
