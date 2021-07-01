@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
@@ -95,16 +96,6 @@ class user : Fragment() {
                 if (hh != null) {
                     hh.text = document.getString("email")
                 }
-
-                uuri = document.getString("imgpath").toString()
-
-                Glide
-                    .with(this)
-                    .load(uuri)
-                    .signature(ObjectKey(System.currentTimeMillis()))
-                    .circleCrop()
-                    .placeholder(R.drawable.placeholder)
-                    .into(imageview)
             }
         }
 
@@ -168,6 +159,9 @@ class user : Fragment() {
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (data != null) {
                 uri = data.data!!
+
+                gli(uri.toString())
+
                 var syst = System.currentTimeMillis()
                 var imgref = storageref.child("uploads/$syst.pdf")
                 imgref.putFile(uri).addOnSuccessListener()
@@ -178,29 +172,11 @@ class user : Fragment() {
                     {
                             url ->
                         var hmp = hashMapOf("imgpath" to url.toString())
+
+
                         db.collection("user data").document("user data").collection(auth.uid.toString())
                             .document("login credentials").set(hmp, SetOptions.merge())
 
-                        var vvt = db.collection("user data").document("user data").collection(auth.uid.toString())
-                            .document("login credentials")
-
-                        vvt.get().addOnSuccessListener()
-                        {
-                                document ->
-
-                            if(document.exists())
-                            {
-                                uuri = document.getString("imgpath").toString()
-                            }
-                        }
-
-                        Glide
-                            .with(this)
-                            .load(uuri)
-                            .signature(ObjectKey(System.currentTimeMillis()))
-                            .circleCrop()
-                            .placeholder(R.drawable.placeholder)
-                            .into(imageview)
                     }
                 }
                     .addOnFailureListener()
@@ -210,6 +186,16 @@ class user : Fragment() {
 
             }
         }
+    }
+
+    fun gli(url:String)
+    {
+        Glide
+            .with(this)
+            .load(url)
+            .circleCrop()
+            .placeholder(R.drawable.placeholder)
+            .into(imageview)
     }
 }
 
