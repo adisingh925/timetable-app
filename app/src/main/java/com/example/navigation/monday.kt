@@ -135,7 +135,7 @@ class monday : AppCompatActivity()
         attach.setOnClickListener()
         {
             var intent = Intent(this@monday,monday_data::class.java)
-            startActivity(intent)
+            startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
         var putdata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
