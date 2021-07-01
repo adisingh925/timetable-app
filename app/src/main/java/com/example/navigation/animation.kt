@@ -14,6 +14,6 @@ class animation : AppCompatActivity() {
             val intent = Intent(this, loginactivity::class.java)
             startActivity(intent)
             finish()
-        }, 1500)
+        }, 300)
     }
 }
