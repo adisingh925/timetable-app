@@ -100,6 +100,8 @@ class user : Fragment() {
                 Glide
                     .with(this)
                     .load(uuri)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .circleCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(imageview)
@@ -204,6 +206,8 @@ class user : Fragment() {
                 Glide
                     .with(this)
                     .load(uuri)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .circleCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(imageview)
