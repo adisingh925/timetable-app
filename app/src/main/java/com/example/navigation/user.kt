@@ -69,6 +69,12 @@ class user : Fragment() {
         val y = view?.findViewById<TextView>(R.id.textview1)
         val hh = view?.findViewById<TextView>(R.id.textview5)
 
+        /////////////////
+
+
+
+        /////////////////
+
 
         view?.findViewById<Button>(R.id.button3)?.setOnClickListener()
         {
@@ -88,6 +94,15 @@ class user : Fragment() {
                 if (hh != null) {
                     hh.text = document.getString("email")
                 }
+
+                uuri = document.getString("imgpath").toString()
+
+                Glide
+                    .with(this)
+                    .load(uuri)
+                    .circleCrop()
+                    .placeholder(R.drawable.placeholder)
+                    .into(imageview)
             }
         }
 
