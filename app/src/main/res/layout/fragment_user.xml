@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:id="@+id/framela"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/unnamed"
+    android:backgroundTint="#80000000"
+    android:backgroundTintMode="src_over"
     tools:context=".user">
 
     <RelativeLayout

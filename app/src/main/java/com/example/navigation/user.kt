@@ -40,6 +40,8 @@ class user : Fragment() {
 
     lateinit var uri:Uri
 
+    lateinit var uuri:String
+
     lateinit var imageview:ImageView
 
     lateinit var king:String
@@ -158,11 +160,9 @@ class user : Fragment() {
                     storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
                     {
                             url ->
-
                         var hmp = hashMapOf("imgpath" to url.toString())
                         db.collection("user data").document("user data").collection(auth.uid.toString())
                             .document("login credentials").set(hmp, SetOptions.merge())
-
                     }
                 }
                     .addOnFailureListener()
@@ -172,9 +172,23 @@ class user : Fragment() {
 
             }
             if (imageview != null) {
+
+                var vvt = db.collection("user data").document("user data").collection(auth.uid.toString())
+                    .document("login credentials")
+
+                vvt.get().addOnSuccessListener()
+                {
+                    document ->
+
+                    if(document.exists())
+                    {
+                        uuri = document.getString("imgpath").toString()
+                    }
+                }
+
                 Glide
                     .with(this)
-                    .load(uri)
+                    .load(uuri)
                     .circleCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(imageview)
