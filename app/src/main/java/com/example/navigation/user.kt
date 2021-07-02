@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -46,6 +47,8 @@ class user : Fragment() {
 
     lateinit var imageview:ImageView
 
+    lateinit var imageview1:ImageView
+
     lateinit var king:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +73,8 @@ class user : Fragment() {
 
         val y = view?.findViewById<TextView>(R.id.textview1)
         val hh = view?.findViewById<TextView>(R.id.textview5)
+
+        imageview = view?.findViewById<ImageView>(R.id.imageview)!!
 
         /////////////////
 
@@ -96,6 +101,15 @@ class user : Fragment() {
                 if (hh != null) {
                     hh.text = document.getString("email")
                 }
+
+                val uuri = document.getString("imgpath")
+
+                Glide
+                    .with(this)
+                    .load(uuri)
+                    .circleCrop()
+                    .placeholder(R.drawable.placeholder)
+                    .into(imageview)
             }
         }
 
@@ -104,7 +118,6 @@ class user : Fragment() {
             ff.text = auth.uid.toString()
         }
 
-        imageview = view?.findViewById<ImageView>(R.id.imageview)!!
         imageview?.setOnClickListener()
         {
             Dexter.withContext(imageview.context)
@@ -160,8 +173,6 @@ class user : Fragment() {
             if (data != null) {
                 uri = data.data!!
 
-                gli(uri.toString())
-
                 var syst = System.currentTimeMillis()
                 var imgref = storageref.child("uploads/$syst.pdf")
                 imgref.putFile(uri).addOnSuccessListener()
@@ -173,6 +184,13 @@ class user : Fragment() {
                             url ->
                         var hmp = hashMapOf("imgpath" to url.toString())
 
+                        Glide
+                            .with(this)
+                            .load(url.toString())
+                            .circleCrop()
+                            .placeholder(R.drawable.placeholder)
+                            .into(imageview)
+
 
                         db.collection("user data").document("user data").collection(auth.uid.toString())
                             .document("login credentials").set(hmp, SetOptions.merge())
@@ -183,19 +201,9 @@ class user : Fragment() {
                     {
                         Toast.makeText(this@user.context,"Upload Failed",Toast.LENGTH_SHORT).show()
                     }
-
             }
         }
     }
 
-    fun gli(url:String)
-    {
-        Glide
-            .with(this)
-            .load(url)
-            .circleCrop()
-            .placeholder(R.drawable.placeholder)
-            .into(imageview)
-    }
 }
 
