@@ -45,7 +45,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:ems="10"
-            android:hint = "Email"
+            android:hint = "Username"
             android:textColorHint="#80FFFFFF"
             android:backgroundTint = "#FFFFFF"
             android:inputType="textEmailAddress"
@@ -106,17 +106,6 @@
             android:textSize="15sp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"/>
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Remember me"
-            android:layout_marginTop="30dp"
-       android:layout_centerHorizontal="true"
-            android:textColor="#FFFFFF"
-          android:layout_below="@id/editTextTextPassword"/>
 
 </RelativeLayout>
 

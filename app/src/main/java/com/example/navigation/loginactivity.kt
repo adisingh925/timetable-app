@@ -13,6 +13,9 @@ import com.google.firebase.messaging.ktx.messaging
 
 class loginactivity : AppCompatActivity()
 {
+
+    lateinit var email:String
+
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -41,38 +44,9 @@ class loginactivity : AppCompatActivity()
             startActivity(intentt)
             finish()
         }
-        else if(auth.currentUser == null) {
+
 
            // val emailpattern = "[a-zA-Z0-9._]+@[a-zA-Z]+.com".toRegex()
-
-            val checkbox = findViewById<CheckBox>(R.id.checkBox)
-
-            val docref =
-                db.collection("user data").document("user data").collection(auth.uid.toString())
-                    .document("login credentials")
-
-            docref.get().addOnSuccessListener()
-            { document ->
-
-                val c = document.getString("status")
-                if (c == "true") {
-                    checkbox.isChecked = true
-                    name.setText(document.getString("email"))
-                    pass.setText(document.getString("password"))
-                }
-
-            }
-
-            checkbox.setOnClickListener()
-            {
-                if (checkbox.isChecked) {
-                    db.collection("user data").document("user data").collection(auth.uid.toString())
-                        .document("login credentials").update("status", "true")
-                } else if (!checkbox.isChecked) {
-                    db.collection("user data").document("user data").collection(auth.uid.toString())
-                        .document("login credentials").update("status", "false")
-                }
-            }
 
             proceed.setOnClickListener()
             {
@@ -87,19 +61,21 @@ class loginactivity : AppCompatActivity()
                     x++;
                 }
 
-               /* if (name.text.toString().matches(emailpattern) == false && x == 0) {
-                    Toast.makeText(
-                        this@loginactivity, "please enter valid email address",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                val docref =
+                    db.collection("user data").document("user data").collection(name.text.toString())
+                        .document("login credentials")
 
-                    name.text = null
-
-                    x++
-                }*/
+                docref.get().addOnSuccessListener()
+                {
+                    document->
+                    if((name.text.toString() == document.getString("username").toString())  && (pass.text.toString() == document.getString("password").toString()))
+                    {
+                        email = document.getString("email").toString()
+                    }
+                }
 
                 if (x == 0) {
-                    auth.signInWithEmailAndPassword(name.text.toString(), pass.text.toString())
+                    auth.signInWithEmailAndPassword(email, pass.text.toString())
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
 
@@ -141,4 +117,3 @@ class loginactivity : AppCompatActivity()
         }
 
     }
-}

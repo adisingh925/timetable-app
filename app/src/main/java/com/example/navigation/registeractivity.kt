@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -32,7 +36,56 @@ class registeractivity : AppCompatActivity()
 
         val register = findViewById<Button>(R.id.button7)
 
+        var value = 0
+
+        val tick = findViewById<ImageView>(R.id.imageView2)
+
+        val cross = findViewById<ImageView>(R.id.imageView3)
+
+        tick.isVisible = false
+        cross.isVisible = false
+
+        var list = mutableListOf<String>()
+
        // val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
+
+        val kingu =  db.collection("user data").document("user data").collection("usernames").document("usernames")
+
+        kingu.get().addOnSuccessListener()
+        {
+            document->
+
+            if(document.exists())
+            {
+                val vv = document.getString("value")
+
+                val rs = vv?.toInt()
+
+                if (rs != null) {
+                    value = rs
+                }
+
+                for(i in 1..value)
+                {
+                        list.add(document.getString("username$i")!!)
+                }
+            }
+        }
+
+        username.doOnTextChanged { text, start, before, count ->
+
+            for(item in list)
+            {
+                    if(item == username.text.toString()) {
+                        tick.isVisible = false
+                        cross.isVisible = true
+                    } else {
+                        tick.isVisible = true
+                        cross.isVisible = false
+                    }
+            }
+
+        }
 
         register.setOnClickListener()
         {
@@ -47,16 +100,14 @@ class registeractivity : AppCompatActivity()
                 x++
             }
 
-          /*  if(!email1.text.toString().matches(confi) && x==0)
+            if(cross.isVisible)
             {
+                x++;
                 Toast.makeText(
-                    this@registeractivity, "Invalid Email Format",
+                    this@registeractivity, "Username already exists",
                     Toast.LENGTH_SHORT
                 ).show()
-
-                x++
-            }*/
-
+            }
 
             if(x==0) {
 
@@ -68,7 +119,19 @@ class registeractivity : AppCompatActivity()
                         if (task.isSuccessful) {
 
                             val data = hashMapOf("username" to username.text.toString(), "email" to email1.text.toString(), "password" to password1.text.toString(), "status" to "false")
-                            db.collection("user data").document("user data").collection(auth.uid.toString()).document("login credentials").set(data)
+                            db.collection("user data").document("user data").collection(username.text.toString()).document("login credentials").set(data)
+
+                            value++;
+
+                            val usnames = hashMapOf("username$value" to username.text.toString())
+
+                            db.collection("user data").document("user data").collection("usernames").document("usernames").set(usnames,
+                                SetOptions.merge())
+
+                            val vall = hashMapOf("value" to value.toString())
+
+                            db.collection("user data").document("user data").collection("usernames").document("usernames").set(vall,
+                                SetOptions.merge())
 
                             Toast.makeText(
                                 this@registeractivity, "Authentication successful.",
