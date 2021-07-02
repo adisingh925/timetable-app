@@ -11,9 +11,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
+var globalname:String = "hi"
+
 class loginactivity : AppCompatActivity()
 {
-
     lateinit var email:String
 
     private lateinit var auth: FirebaseAuth
@@ -38,15 +39,12 @@ class loginactivity : AppCompatActivity()
 
         val proceed = findViewById<Button>(R.id.button99)
 
-        if(auth.currentUser!=null)
+       /* if(auth.currentUser!=null)
         {
             val intentt = Intent(this@loginactivity,MainActivity::class.java)
             startActivity(intentt)
             finish()
-        }
-
-
-           // val emailpattern = "[a-zA-Z0-9._]+@[a-zA-Z]+.com".toRegex()
+        }*/
 
             proceed.setOnClickListener()
             {
@@ -68,38 +66,37 @@ class loginactivity : AppCompatActivity()
                 docref.get().addOnSuccessListener()
                 {
                     document->
-                    if((name.text.toString() == document.getString("username").toString())  && (pass.text.toString() == document.getString("password").toString()))
+                    var names = document.getString("username").toString()
+                    var passs = document.getString("password").toString()
+                    if((name.text.toString() == names)  && (pass.text.toString() == passs))
                     {
-                        email = document.getString("email").toString()
+                        if (x == 0) {
+                            auth.signInWithEmailAndPassword(document.getString("email").toString(), pass.text.toString())
+                                .addOnCompleteListener(this) { task ->
+                                    if (task.isSuccessful) {
+
+                                        Toast.makeText(
+                                            this@loginactivity, "Authentication Successful",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+
+                                        globalname = document.getString("username").toString()
+
+                                        val intent =
+                                            Intent(this@loginactivity, MainActivity::class.java)
+                                        intent.putExtra("name", name.text.toString())
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(
+                                            this@loginactivity, "Authentication failed.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                        }
                     }
                 }
-
-                if (x == 0) {
-                    auth.signInWithEmailAndPassword(email, pass.text.toString())
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-
-                                Toast.makeText(
-                                    this@loginactivity, "Authentication Successful",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-
-                                val intent =
-                                    Intent(this@loginactivity, MainActivity::class.java)
-                                intent.putExtra("name", name.text.toString())
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(
-                                    this@loginactivity, "Authentication failed.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                }
-
-
             }
 
 

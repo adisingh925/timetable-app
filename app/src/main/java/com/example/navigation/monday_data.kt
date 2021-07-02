@@ -76,7 +76,7 @@ class monday_data : AppCompatActivity() {
         rcv.adapter = rcv1
         rcv.layoutManager = LinearLayoutManager(this)
 
-        var jumbo = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+        var jumbo = db.collection("user data").document("user data").collection(globalname).document("system_time")
         jumbo.get().addOnSuccessListener()
         {
     document ->
@@ -167,11 +167,11 @@ class monday_data : AppCompatActivity() {
                 Collections.swap(names, startposition, endposition)
                 rcv1.notifyItemMoved(startposition, endposition)
 
-                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                var deletedata = db.collection("user data").document("user data").collection(globalname).document("system_time")
                 deletedata.delete()
                 value=1
 
-                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("system_time")
                 for(m in 1..(names.lastIndex+1))
                 {
                     val update = hashMapOf("$m" to names[m-1].time)
@@ -187,11 +187,11 @@ class monday_data : AppCompatActivity() {
                 names.removeAt(position)
                 rcv1.notifyItemRemoved(position)
                 rcv1.notifyDataSetChanged()
-                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                var deletedata = db.collection("user data").document("user data").collection(globalname).document("system_time")
                 deletedata.delete()
                 value=1
 
-                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time")
+                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("system_time")
                 for(m in 1..(names.lastIndex+1))
                 {
                     val update = hashMapOf("$m" to names[m-1].time)
@@ -225,15 +225,15 @@ class monday_data : AppCompatActivity() {
                 progbar.isVisible = false
                 upload.isVisible = true
                 val cc = hashMapOf("$value" to syst)
-                db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(cc,
+                db.collection("user data").document("user data").collection(globalname).document("system_time").set(cc,
                     SetOptions.merge())
                 val cp = hashMapOf("value" to value)
-                db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(cp,
+                db.collection("user data").document("user data").collection(globalname).document("system_time").set(cp,
                     SetOptions.merge())
                 storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
                 {uril ->
                     var ty = hashMapOf("link${value-1}" to uril.toString())
-                    db.collection("user data").document("user data").collection(auth.uid.toString()).document("system_time").set(ty,
+                    db.collection("user data").document("user data").collection(globalname).document("system_time").set(ty,
                         SetOptions.merge())
                 }
                 value++

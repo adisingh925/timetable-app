@@ -125,7 +125,7 @@ class monday : AppCompatActivity()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////
-        var data = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+        var data = db.collection("user data").document("user data").collection(globalname).document("monday")
         ///////////////////////////////////////////////////////////////////
 
         var i = 1
@@ -138,7 +138,7 @@ class monday : AppCompatActivity()
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
-        var putdata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+        var putdata = db.collection("user data").document("user data").collection(globalname).document("monday")
 
         putdata.get().addOnSuccessListener()
         {
@@ -208,7 +208,7 @@ class monday : AppCompatActivity()
                 subject = edittext1.text.toString()
                 time = button.text.toString()
                 var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
-                db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+                db.collection("user data").document("user data").collection(globalname).document("monday")
                     .set(data1, SetOptions.merge())
                 timetabledata.add(dataclass(subject,time))
                 rcv1.notifyDataSetChanged()
@@ -235,11 +235,11 @@ class monday : AppCompatActivity()
                 Collections.swap(timetabledata, startposition, endposition)
                 rcv1.notifyItemMoved(startposition, endposition)
 
-                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+                var deletedata = db.collection("user data").document("user data").collection(globalname).document("monday")
                 deletedata.delete()
                 i=1
 
-                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("monday")
                 for(m in 1..(timetabledata.lastIndex+1))
                 {
                     val update = hashMapOf("subject$m" to timetabledata[m-1].name, "time$m" to timetabledata[m-1].time)
@@ -256,11 +256,11 @@ class monday : AppCompatActivity()
                 cancelalarm(temp)
                 rcv1.notifyItemRemoved(position)
                 rcv1.notifyDataSetChanged()
-                var deletedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+                var deletedata = db.collection("user data").document("user data").collection(globalname).document("monday")
                 deletedata.delete()
                 i=1
 
-                val rewritedata = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("monday")
                 for(m in 1..(timetabledata.lastIndex+1))
                 {
                     val update = hashMapOf("subject$m" to timetabledata[m-1].name, "time$m" to timetabledata[m-1].time)
@@ -273,7 +273,7 @@ class monday : AppCompatActivity()
 
     private fun setalarm(i:Int)
     {
-        var ff = db.collection("user data").document("user data").collection(auth.uid.toString()).document("monday")
+        var ff = db.collection("user data").document("user data").collection(globalname).document("monday")
 
         ff.get().addOnSuccessListener {
                 document ->

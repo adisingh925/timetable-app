@@ -90,7 +90,7 @@ class user : Fragment() {
             startActivity(inte)
         }
 
-        val z = db.collection("user data").document("user data").collection(auth.uid.toString())
+        val z = db.collection("user data").document("user data").collection(globalname)
             .document("login credentials")
         z.get().addOnSuccessListener { document ->
             if (document.exists()) {
@@ -115,7 +115,7 @@ class user : Fragment() {
 
         val ff = view?.findViewById<TextView>(R.id.textview3)
         if (ff != null) {
-            ff.text = auth.uid.toString()
+            ff.text = globalname
         }
 
         imageview?.setOnClickListener()
@@ -192,7 +192,7 @@ class user : Fragment() {
                             .into(imageview)
 
 
-                        db.collection("user data").document("user data").collection(auth.uid.toString())
+                        db.collection("user data").document("user data").collection(globalname)
                             .document("login credentials").set(hmp, SetOptions.merge())
 
                     }

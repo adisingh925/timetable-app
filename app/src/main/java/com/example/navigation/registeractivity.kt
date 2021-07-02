@@ -47,9 +47,8 @@ class registeractivity : AppCompatActivity()
 
         var list = mutableListOf<String>()
 
-       // val confi = "[0-9a-zA-Z]+@[a-zA-Z]+.com".toRegex()
 
-        val kingu =  db.collection("user data").document("user data").collection("usernames").document("usernames")
+        var kingu =  db.collection("user data").document("user data").collection("usernames").document("usernames")
 
         kingu.get().addOnSuccessListener()
         {
@@ -57,9 +56,9 @@ class registeractivity : AppCompatActivity()
 
             if(document.exists())
             {
-                val vv = document.getString("value")
+                var vv = document.getString("value")
 
-                val rs = vv?.toInt()
+                var rs = vv?.toInt()
 
                 if (rs != null) {
                     value = rs
@@ -74,16 +73,14 @@ class registeractivity : AppCompatActivity()
 
         username.doOnTextChanged { text, start, before, count ->
 
-            for(item in list)
-            {
-                    if(item == username.text.toString()) {
+                var namu = username.text.toString()
+                    if(namu in list) {
                         tick.isVisible = false
                         cross.isVisible = true
                     } else {
                         tick.isVisible = true
                         cross.isVisible = false
                     }
-            }
 
         }
 
@@ -102,7 +99,7 @@ class registeractivity : AppCompatActivity()
 
             if(cross.isVisible)
             {
-                x++;
+                x++
                 Toast.makeText(
                     this@registeractivity, "Username already exists",
                     Toast.LENGTH_SHORT
@@ -121,7 +118,7 @@ class registeractivity : AppCompatActivity()
                             val data = hashMapOf("username" to username.text.toString(), "email" to email1.text.toString(), "password" to password1.text.toString(), "status" to "false")
                             db.collection("user data").document("user data").collection(username.text.toString()).document("login credentials").set(data)
 
-                            value++;
+                            value++
 
                             val usnames = hashMapOf("username$value" to username.text.toString())
 
@@ -140,6 +137,7 @@ class registeractivity : AppCompatActivity()
 
                             val intent = Intent(this@registeractivity, loginactivity::class.java)
                             startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@registeractivity, "Authentication failed.",
