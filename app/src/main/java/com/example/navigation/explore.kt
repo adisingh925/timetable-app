@@ -42,8 +42,15 @@ class explore : AppCompatActivity() {
                 {
                     var names = document.getString("username$i")
                     var imagepath = names?.let { document.getString(it) }
-                    usernames.add(exploredataclass(names!!, imagepath!!))
-                    rcv1.notifyDataSetChanged()
+                    if(imagepath==null)
+                    {
+                        usernames.add(exploredataclass(names!!, "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"))
+                        rcv1.notifyDataSetChanged()
+                    }
+                    else {
+                        usernames.add(exploredataclass(names!!, imagepath!!))
+                        rcv1.notifyDataSetChanged()
+                    }
                 }
             }
         }

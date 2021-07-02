@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -39,12 +40,16 @@ class loginactivity : AppCompatActivity()
 
         val proceed = findViewById<Button>(R.id.button99)
 
+        val imageview4 = findViewById<ImageView>(R.id.imageView4)
+
        /* if(auth.currentUser!=null)
         {
             val intentt = Intent(this@loginactivity,MainActivity::class.java)
             startActivity(intentt)
             finish()
         }*/
+
+        Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(imageview4)
 
             proceed.setOnClickListener()
             {
