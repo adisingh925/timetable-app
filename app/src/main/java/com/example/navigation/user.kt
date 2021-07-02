@@ -195,6 +195,11 @@ class user : Fragment() {
                         db.collection("user data").document("user data").collection(globalname)
                             .document("login credentials").set(hmp, SetOptions.merge())
 
+                        val ppt = hashMapOf(globalname to url.toString())
+
+                        db.collection("user data").document("user data").collection("usernames")
+                            .document("usernames").set(ppt, SetOptions.merge())
+
                     }
                 }
                     .addOnFailureListener()
