@@ -64,41 +64,52 @@ class loginactivity : AppCompatActivity()
                     x++;
                 }
 
-                val docref =
-                    db.collection("user data").document("user data").collection(name.text.toString())
-                        .document("login credentials")
 
-                docref.get().addOnSuccessListener()
-                {
-                    document->
-                    var names = document.getString("username").toString()
-                    var passs = document.getString("password").toString()
-                    if((name.text.toString() == names)  && (pass.text.toString() == passs))
-                    {
-                        if (x == 0) {
-                            auth.signInWithEmailAndPassword(document.getString("email").toString(), pass.text.toString())
-                                .addOnCompleteListener(this) { task ->
-                                    if (task.isSuccessful) {
+                else {
+                    val docref =
+                        db.collection("user data").document("user data")
+                            .collection(name.text.toString())
+                            .document("login credentials")
 
-                                        Toast.makeText(
-                                            this@loginactivity, "Authentication Successful",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                    docref.get().addOnSuccessListener()
+                    { document ->
+                        var names = document.getString("username").toString()
+                        var passs = document.getString("password").toString()
+                        if ((name.text.toString() == names) && (pass.text.toString() == passs)) {
+                            if (x == 0) {
+                                auth.signInWithEmailAndPassword(
+                                    document.getString("email").toString(), pass.text.toString()
+                                )
+                                    .addOnCompleteListener(this) { task ->
+                                        if (task.isSuccessful) {
 
-                                        globalname = document.getString("username").toString()
+                                            Toast.makeText(
+                                                this@loginactivity, "Authentication Successful",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
 
-                                        val intent =
-                                            Intent(this@loginactivity, MainActivity::class.java)
-                                        intent.putExtra("name", name.text.toString())
-                                        startActivity(intent)
-                                        finish()
-                                    } else {
-                                        Toast.makeText(
-                                            this@loginactivity, "Authentication failed.",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                            globalname = document.getString("username").toString()
+
+                                            val intent =
+                                                Intent(this@loginactivity, MainActivity::class.java)
+                                            intent.putExtra("name", name.text.toString())
+                                            startActivity(intent)
+                                            finish()
+                                        } else {
+                                            Toast.makeText(
+                                                this@loginactivity, "Authentication failed.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                     }
-                                }
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(
+                                this@loginactivity, "Username or password is incorrect",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

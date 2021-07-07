@@ -113,7 +113,11 @@ class registeractivity : AppCompatActivity()
 
             if(username.text.toString().contains("."))
             {
-                username.text.toString().replace(".",",")
+                x++
+                Toast.makeText(
+                    this@registeractivity, "Special characters are not allowed in username",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             if(x==0) {
