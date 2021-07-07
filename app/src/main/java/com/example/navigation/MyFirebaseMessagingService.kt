@@ -25,17 +25,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     fun firebasemsg(title:String, msg:String)
     {
-
-      /*  try {
-            val url = URL("https://stimg.cardekho.com/images/carexteriorimages/930x620/Ferrari/F8-Tributo/7945/1598599471404/front-left-side-47.jpg")
-            image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-        } catch (e: IOException) {
-            System.out.println(e)
-        }*/
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
-            val channel99 = NotificationChannel("firebasemessage","firebasenotification",NotificationManager.IMPORTANCE_HIGH)
+            val channel99 = NotificationChannel("firebasemessage","Cloud_Notification",NotificationManager.IMPORTANCE_HIGH)
             channel99.description = "This is firebasenotification channel"
             notificationmanager99 = getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationmanager99.createNotificationChannel(channel99)
@@ -46,7 +38,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         builder.setContentTitle(title)
         builder.setSmallIcon(R.drawable.setting)
         builder.setAutoCancel(true)
-
 
         notificationmanager99.notify(10012,builder.build())
     }
