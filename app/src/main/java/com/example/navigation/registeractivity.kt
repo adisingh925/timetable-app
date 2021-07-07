@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -42,10 +43,14 @@ class registeractivity : AppCompatActivity()
 
         val cross = findViewById<ImageView>(R.id.imageView3)
 
+        val icon = findViewById<ImageView>(R.id.imageView4)
+
         tick.isVisible = false
         cross.isVisible = false
 
         var list = mutableListOf<String>()
+
+        Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(icon)
 
 
         var kingu =  db.collection("user data").document("user data").collection("usernames").document("usernames")
