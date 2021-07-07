@@ -111,6 +111,11 @@ class registeractivity : AppCompatActivity()
                 ).show()
             }
 
+            if(username.text.toString().contains("."))
+            {
+                username.text.toString().replace(".",",")
+            }
+
             if(x==0) {
 
                 auth.createUserWithEmailAndPassword(
