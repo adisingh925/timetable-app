@@ -1,11 +1,14 @@
 package com.example.navigation
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -42,6 +45,7 @@ class loginactivity : AppCompatActivity()
 
         val imageview4 = findViewById<ImageView>(R.id.imageView4)
 
+
        /* if(auth.currentUser!=null)
         {
             val intentt = Intent(this@loginactivity,MainActivity::class.java)
@@ -52,15 +56,12 @@ class loginactivity : AppCompatActivity()
         Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(imageview4)
 
             proceed.setOnClickListener()
-            {
+            {view->
                 var x = 0
 
                 if (name.text.toString().isEmpty() || pass.text.toString().isEmpty()) {
-                    Toast.makeText(
-                        this@loginactivity, "Please Enter value for both input fields",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                  Snackbar.make(view,"Please enter value for all fields",Snackbar.LENGTH_SHORT)
+                      .setBackgroundTint(Color.DKGRAY).setTextColor(Color.WHITE).show()
                     x++;
                 }
 
