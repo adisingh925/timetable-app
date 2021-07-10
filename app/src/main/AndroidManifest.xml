@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.navigation">
+    package="com.app1.navigation">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
 
     <application
         android:allowBackup="true"
@@ -23,21 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Navigation">
-        <activity android:name=".loginactivity"></activity>
-        <activity android:name=".monday_data" />
-        <activity android:name=".explore" />
-        <activity android:name=".settings" />
-        <activity android:name=".passwordresetactivity" />
-        <activity android:name=".registeractivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".saturday" />
-        <activity android:name=".friday" />
-        <activity android:name=".thursday" />
-        <activity android:name=".wednesday" />
-        <activity android:name=".tuesday" />
-        <activity android:name=".monday" />
-        <activity android:name=".sunday" />
-        <activity android:name=".animation">
+        <activity android:name="com.app1.navigation.loginactivity"></activity>
+        <activity android:name="com.app1.navigation.monday_data" />
+        <activity android:name="com.app1.navigation.explore" />
+        <activity android:name="com.app1.navigation.settings" />
+        <activity android:name="com.app1.navigation.passwordresetactivity" />
+        <activity android:name="com.app1.navigation.registeractivity" />
+        <activity android:name="com.app1.navigation.MainActivity" />
+        <activity android:name="com.app1.navigation.saturday" />
+        <activity android:name="com.app1.navigation.friday" />
+        <activity android:name="com.app1.navigation.thursday" />
+        <activity android:name="com.app1.navigation.wednesday" />
+        <activity android:name="com.app1.navigation.tuesday" />
+        <activity android:name="com.app1.navigation.monday" />
+        <activity android:name="com.app1.navigation.sunday" />
+        <activity android:name="com.app1.navigation.animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,15 +36,15 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".mondayalarmmanager" />
-        <receiver android:name=".tuesdayalarmmanager" />
-        <receiver android:name=".wednesdayalarmmanager" />
-        <receiver android:name=".thursdayalarmmanager" />
-        <receiver android:name=".fridayalarmmanager" />
-        <receiver android:name=".saturdayalarmmanager" />
+        <receiver android:name="com.app1.navigation.mondayalarmmanager" />
+        <receiver android:name="com.app1.navigation.tuesdayalarmmanager" />
+        <receiver android:name="com.app1.navigation.wednesdayalarmmanager" />
+        <receiver android:name="com.app1.navigation.thursdayalarmmanager" />
+        <receiver android:name="com.app1.navigation.fridayalarmmanager" />
+        <receiver android:name="com.app1.navigation.saturdayalarmmanager" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.app1.navigation.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
