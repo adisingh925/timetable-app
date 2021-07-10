@@ -201,17 +201,23 @@ class monday : AppCompatActivity()
 
             done.setOnClickListener()
             {
-                alertDialog.dismiss()
-                subject = edittext1.text.toString()
-                time = button.text.toString()
-                var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
-                db.collection("user data").document("user data").collection(globalname).document("monday")
-                    .set(data1, SetOptions.merge())
-                timetabledata.add(dataclass(subject,time))
-                rcv1.notifyDataSetChanged()
-                setalarm(i)
-                i++;
-
+                if(!edittext1.text.toString().isEmpty() && button.text.toString()!= "Select time") {
+                    alertDialog.dismiss()
+                    subject = edittext1.text.toString()
+                    time = button.text.toString()
+                    var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("monday")
+                        .set(data1, SetOptions.merge())
+                    timetabledata.add(dataclass(subject, time))
+                    rcv1.notifyDataSetChanged()
+                    setalarm(i)
+                    i++;
+                }
+                else
+                {
+                    Toast.makeText(this@monday,"Please enter value for all fields",Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
