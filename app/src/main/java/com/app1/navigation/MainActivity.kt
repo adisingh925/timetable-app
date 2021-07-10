@@ -1,5 +1,6 @@
 package com.app1.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,15 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         val immg = findViewById<ImageView>(R.id.immg)
+
+        val logout = findViewById<ImageView>(R.id.imageview1)
+
+        logout.setOnClickListener()
+        {
+            auth.signOut()
+            val inte = Intent(this@MainActivity,loginactivity::class.java)
+            startActivity(inte)
+        }
 
        /* Glide.with(this)
             .load("https://etimg.etb2bimg.com/photo/73164879.cms")

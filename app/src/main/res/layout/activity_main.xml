@@ -43,6 +43,18 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/imageview1"
+            android:backgroundTint="#3366CC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_logout_icon_155171"
+            app:tint="#FFFFFF" />
+
+
     </RelativeLayout>
 
     <fragment

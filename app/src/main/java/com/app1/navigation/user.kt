@@ -78,13 +78,6 @@ class user : Fragment() {
         /////////////////
 
 
-        view?.findViewById<Button>(R.id.button3)?.setOnClickListener()
-        {
-            auth.signOut()
-            val inte = Intent(this@user.context,loginactivity::class.java)
-            startActivity(inte)
-        }
-
         val z = db.collection("user data").document("user data").collection(globalname)
             .document("login credentials")
         z.get().addOnSuccessListener { document ->

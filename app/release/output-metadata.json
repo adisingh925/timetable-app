@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.navigation",
+  "applicationId": "com.app1.navigation",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "3.00",
+      "versionCode": 2,
+      "versionName": "1.00",
       "outputFile": "app-release.apk"
     }
   ]
