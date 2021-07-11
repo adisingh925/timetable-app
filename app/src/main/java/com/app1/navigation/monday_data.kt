@@ -6,16 +6,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -207,53 +208,83 @@ class monday_data : AppCompatActivity() {
                 uri = data.data!!
             }
 
-            var syst = System.currentTimeMillis().toString()
-            var riversRef = storageref.child("uploads/$syst.pdf")
-            upload.isVisible = false
-            progbar.isVisible = true
+            //////////////////////////////////////////////////////////////
+            var viewgroup: ViewGroup = findViewById(android.R.id.content)
+            var builder = AlertDialog.Builder(this)
+            var view1: View = LayoutInflater.from(this).inflate(R.layout.filenamedialog,viewgroup,false)
+            builder.setCancelable(false)
+            builder.setView(view1)
 
-            riversRef.putFile(uri)
-                .addOnSuccessListener()
+            var close = view1.findViewById<Button>(R.id.cancel)
+            var done = view1.findViewById<Button>(R.id.done)
+            var edittext = view1.findViewById<EditText>(R.id.edittext)
+            var textview = view1.findViewById<TextView>(R.id.textview)
+
+            var alertDialog:AlertDialog = builder.create()
+            alertDialog.show()
+
+            close.setOnClickListener()
             {
-                Toast.makeText(this,"Upload Success",Toast.LENGTH_SHORT).show()
-                names.add(filenames(syst))
-                rcv1.notifyDataSetChanged()
-                progbar.isVisible = false
-                upload.isVisible = true
-                val cc = hashMapOf("$value" to syst)
-                db.collection("user data").document("user data").collection(globalname).document("system_time").set(cc,
-                    SetOptions.merge())
-                val cp = hashMapOf("value" to value)
-                db.collection("user data").document("user data").collection(globalname).document("system_time").set(cp,
-                    SetOptions.merge())
-                storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
-                {uril ->
-                    var ty = hashMapOf("link${value-1}" to uril.toString())
-                    db.collection("user data").document("user data").collection(globalname).document("system_time").set(ty,
-                        SetOptions.merge())
-                }
-                value++
-
+                alertDialog.dismiss()
             }
-                .addOnFailureListener()
-                {
-                    Toast.makeText(this,"Upload Failed",Toast.LENGTH_SHORT).show()
-                    progbar.isVisible = false
-                    upload.isVisible = true
-                }
-                .addOnProgressListener()
-                {
-                    progress->
-                    uploaded.isVisible = true
-                    uploaded.text = ((100 * progress.bytesTransferred)/(progress.totalByteCount)).toString()+"%"
-                    if(uploaded.text == "100%")
-                    {
-                        uploaded.isVisible = false
-                    }
-                }
 
+            done.setOnClickListener()
+            {
+                    view->
+                if(edittext.text.toString().isEmpty())
+                {
+                    Snackbar.make(view,"Please enter a filename", Snackbar.LENGTH_SHORT)
+                }
+                else {
+                    alertDialog.dismiss()
+                    var syst = edittext.text.toString()
+                    var riversRef = storageref.child("uploads/$syst.pdf")
+                    upload.isVisible = false
+                    progbar.isVisible = true
+
+                    riversRef.putFile(uri)
+                        .addOnSuccessListener()
+                        {
+                            Toast.makeText(this,"Upload Success",Toast.LENGTH_SHORT).show()
+                            names.add(filenames(syst))
+                            rcv1.notifyDataSetChanged()
+                            progbar.isVisible = false
+                            upload.isVisible = true
+                            val cc = hashMapOf("$value" to syst)
+                            db.collection("user data").document("user data").collection(globalname).document("system_time").set(cc,
+                                SetOptions.merge())
+                            val cp = hashMapOf("value" to value)
+                            db.collection("user data").document("user data").collection(globalname).document("system_time").set(cp,
+                                SetOptions.merge())
+                            storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
+                            {uril ->
+                                var ty = hashMapOf("link${value-1}" to uril.toString())
+                                db.collection("user data").document("user data").collection(globalname).document("system_time").set(ty,
+                                    SetOptions.merge())
+                            }
+                            value++
+
+                        }
+                        .addOnFailureListener()
+                        {
+                            Toast.makeText(this,"Upload Failed",Toast.LENGTH_SHORT).show()
+                            progbar.isVisible = false
+                            upload.isVisible = true
+                        }
+                        .addOnProgressListener()
+                        {
+                                progress->
+                            uploaded.isVisible = true
+                            uploaded.text = ((100 * progress.bytesTransferred)/(progress.totalByteCount)).toString()+"%"
+                            if(uploaded.text == "100%")
+                            {
+                                uploaded.isVisible = false
+                            }
+                        }
+                }
+            }
+            //////////////////////////////////////////////////////////////
         }
 
     }
-
 }
