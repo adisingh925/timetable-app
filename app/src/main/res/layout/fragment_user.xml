@@ -12,8 +12,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/framela"
     android:layout_height="match_parent"
-    android:background="@drawable/unnamed"
-    android:backgroundTint="#80000000"
+    android:background="@color/white"
     android:backgroundTintMode="src_over"
     tools:context=".user">
 

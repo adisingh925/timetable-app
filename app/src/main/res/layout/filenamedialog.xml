@@ -6,8 +6,11 @@
     android:background="@color/transparent">
 
     <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="400dp"
         android:layout_height="250dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -37,6 +40,7 @@
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:gravity="center"
+                android:backgroundTint="@color/black"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/textview"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -48,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
+                android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/edittext"
                 app:layout_constraintRight_toLeftOf="@id/done"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -58,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Done"
+                android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/edittext"
                 app:layout_constraintLeft_toRightOf="@id/cancel"
                 app:layout_constraintRight_toRightOf="parent"
