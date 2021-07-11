@@ -133,7 +133,7 @@ class registeractivity : AppCompatActivity()
 
                             value++
 
-                            val usnames = hashMapOf("username$value" to username.text.toString())
+                            val usnames = hashMapOf("username$value" to username.text.toString(), "${globalname}status" to "true")
 
                             db.collection("user data").document("user data").collection("usernames").document("usernames").set(usnames,
                                 SetOptions.merge())

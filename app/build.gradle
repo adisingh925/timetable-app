@@ -16,7 +16,7 @@ android {
         applicationId "com.app1.navigation"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 2
+        versionCode 3
         versionName "1.00"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

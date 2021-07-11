@@ -38,16 +38,18 @@ class explore : AppCompatActivity() {
             {
                 var value = document.getString("value")?.toInt()
 
+
                 for(i in 1..value!!)
                 {
                     var names = document.getString("username$i")
+                    var status = document.getString("${names.toString()}status").toString()
                     var imagepath = document.getString(names.toString())
-                    if(imagepath == null)
+                    if(imagepath == null && status == "false")
                     {
                         usernames.add(exploredataclass(names!!, "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"))
                         rcv1.notifyDataSetChanged()
                     }
-                    else {
+                    else if(imagepath != null && status == "false"){
                         usernames.add(exploredataclass(names!!, imagepath))
                         rcv1.notifyDataSetChanged()
                     }

@@ -162,12 +162,12 @@ class user : Fragment() {
                 uri = data.data!!
 
                 var syst = System.currentTimeMillis()
-                var imgref = storageref.child("uploads/$syst.pdf")
+                var imgref = storageref.child("$globalname/$syst.pdf")
                 imgref.putFile(uri).addOnSuccessListener()
                 {
                     Toast.makeText(this@user.context,"Upload Success",Toast.LENGTH_SHORT).show()
 
-                    storageref.child("uploads/$syst.pdf").downloadUrl.addOnSuccessListener()
+                    storageref.child("$globalname/$syst.pdf").downloadUrl.addOnSuccessListener()
                     {
                             url ->
                         var hmp = hashMapOf("imgpath" to url.toString())
