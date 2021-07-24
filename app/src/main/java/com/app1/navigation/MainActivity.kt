@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-      /*  val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
 
         val day = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(saturday1)
             }
 
-        }*/
+        }
 
         val immg = findViewById<ImageView>(R.id.immg)
 

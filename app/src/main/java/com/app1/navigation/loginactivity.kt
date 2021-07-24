@@ -14,13 +14,11 @@ import com.google.firebase.ktx.Firebase
 
 var globalname:String = "hi"
 
-class loginactivity : AppCompatActivity()
-{
-    lateinit var email:String
+class loginactivity : AppCompatActivity() {
+    lateinit var email: String
 
     private lateinit var auth: FirebaseAuth
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginactivity)
 
@@ -42,28 +40,37 @@ class loginactivity : AppCompatActivity()
 
         val imageview4 = findViewById<ImageView>(R.id.imageView4)
 
-
-       /* if(auth.currentUser!=null)
-        {
-            val intentt = Intent(this@loginactivity,MainActivity::class.java)
-            startActivity(intentt)
-            finish()
-        }*/
-
         Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(imageview4)
 
+
+        if (auth.currentUser != null) {
+
+            val dbs = db.collection("userdata").document("username").collection("userid")
+                .document(auth.uid.toString())
+            dbs.get().addOnSuccessListener()
+            { document ->
+                if (document.exists()) {
+                    val data = document.getString(auth.uid.toString())
+                    if (data != null) {
+                        globalname = data
+                    }
+                    val intentt = Intent(this@loginactivity, MainActivity::class.java)
+                    startActivity(intentt)
+                    finish()
+                }
+            }
+
+        } else {
+
             proceed.setOnClickListener()
-            {view->
+            { view ->
                 var x = 0
 
                 if (name.text.toString().isEmpty() || pass.text.toString().isEmpty()) {
-                  Snackbar.make(view,"Please enter value for all fields",Snackbar.LENGTH_SHORT)
-                      .setBackgroundTint(Color.DKGRAY).setTextColor(Color.WHITE).show()
+                    Snackbar.make(view, "Please enter value for all fields", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(Color.DKGRAY).setTextColor(Color.WHITE).show()
                     x++;
-                }
-
-
-                else {
+                } else {
                     val docref =
                         db.collection("user data").document("user data")
                             .collection(name.text.toString())
@@ -88,6 +95,10 @@ class loginactivity : AppCompatActivity()
 
                                             globalname = document.getString("username").toString()
 
+                                            val abcd = hashMapOf(auth.uid.toString() to name.text.toString())
+
+                                            val docref2 = db.collection("userdata").document("username").collection("userid").document(auth.uid.toString()).set(abcd)
+
                                             val intent =
                                                 Intent(this@loginactivity, MainActivity::class.java)
                                             intent.putExtra("name", name.text.toString())
@@ -101,9 +112,7 @@ class loginactivity : AppCompatActivity()
                                         }
                                     }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(
                                 this@loginactivity, "Username or password is incorrect",
                                 Toast.LENGTH_SHORT
@@ -128,3 +137,4 @@ class loginactivity : AppCompatActivity()
         }
 
     }
+}

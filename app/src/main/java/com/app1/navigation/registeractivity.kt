@@ -143,6 +143,11 @@ class registeractivity : AppCompatActivity()
                             db.collection("user data").document("user data").collection("usernames").document("usernames").set(vall,
                                 SetOptions.merge())
 
+                            val abc = hashMapOf(auth.uid.toString() to username.text.toString())
+
+                            val docref2 = db.collection("userdata").document("username").collection("userid").document(auth.uid.toString()).set(abc)
+
+
                             Toast.makeText(
                                 this@registeractivity, "Authentication successful.",
                                 Toast.LENGTH_SHORT
