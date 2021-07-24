@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
 
         when(day)
         {
-            Calendar.SUNDAY -> {
+           /* Calendar.SUNDAY -> {
                 val sunday1 = Intent(this, sunday::class.java)
                 startActivity(sunday1)
-            }
+            }*/
             Calendar.MONDAY -> {
                 val monday1 = Intent(this, monday::class.java)
                 startActivity(monday1)
@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity() {
                 val friday1 = Intent(this, friday::class.java)
                 startActivity(friday1)
             }
-            Calendar.SATURDAY -> {
+           /* Calendar.SATURDAY -> {
                 val saturday1 = Intent(this, saturday::class.java)
                 startActivity(saturday1)
-            }
+            }*/
 
         }
 
