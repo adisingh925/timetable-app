@@ -26,7 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="40dp"
             android:gravity="center"
-            android:textSize="30dp"/>
+            android:textSize="20dp"/>
 
         <TextView
             android:id = "@+id/textview2"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="50dp"
             android:text = "Time"/>

@@ -110,7 +110,7 @@ class monday : AppCompatActivity()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
-                textview.text = SimpleDateFormat("HH:mm").format(cal.time)
+                textview.text = SimpleDateFormat("hh:mm a").format(cal.time)
             }
             TimePickerDialog(
                 this,
@@ -167,7 +167,7 @@ class monday : AppCompatActivity()
 
         back.setOnClickListener()
         {
-            notificationmanager1.notify(1,build1.build())
+           // notificationmanager1.notify(1,build1.build())
             finish()
         }
 
@@ -277,7 +277,7 @@ class monday : AppCompatActivity()
 
     private fun setalarm(i:Int)
     {
-        var ff = db.collection("user data").document("user data").collection(globalname).document("monday")
+       /* var ff = db.collection("user data").document("user data").collection(globalname).document("monday")
 
         ff.get().addOnSuccessListener {
                 document ->
@@ -317,17 +317,17 @@ class monday : AppCompatActivity()
                     )
                     Toast.makeText(this, "alarm set successfully", Toast.LENGTH_SHORT).show()
                 }
-            }
+            }*/
     }
 
     private fun cancelalarm(i:Int)
     {
-        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+       /* alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(this,mondayalarmmanager::class.java)
         pendingIntent = PendingIntent.getBroadcast(this,i,intent,0)
 
         alarmManager.cancel(pendingIntent)
 
-        Toast.makeText(this,"alarm canceled",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"alarm canceled",Toast.LENGTH_SHORT).show()*/
     }
 }
