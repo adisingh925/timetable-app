@@ -75,7 +75,12 @@
         android:id = "@+id/navigationview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
         android:layout_gravity = "start"
+        app:itemTextColor="#00008B"
+        app:itemIconTint="#00008B"
+        app:itemIconSize="35dp"
+        app:headerLayout="@layout/navheader"
         app:menu = "@menu/menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
