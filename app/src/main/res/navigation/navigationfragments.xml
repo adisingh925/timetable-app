@@ -24,22 +24,22 @@
         android:id="@+id/wednesday"
         android:name="com.app1.navigation.wednesday"
         android:label="activity_wednesday"
-        tools:layout="@layout/activity_monday" />
+        tools:layout="@layout/fragment_monday" />
     <fragment
         android:id="@+id/thursday"
         android:name="com.app1.navigation.thursday"
         android:label="activity_thursday"
-        tools:layout="@layout/activity_monday" />
+        tools:layout="@layout/fragment_monday" />
     <fragment
         android:id="@+id/friday"
         android:name="com.app1.navigation.friday"
         android:label="activity_friday"
-        tools:layout="@layout/activity_monday" />
+        tools:layout="@layout/fragment_monday" />
     <fragment
         android:id="@+id/saturday"
         android:name="com.app1.navigation.saturday"
         android:label="activity_saturday"
-        tools:layout="@layout/activity_monday" />
+        tools:layout="@layout/fragment_monday" />
     <fragment
         android:id="@+id/explore"
         android:name="com.app1.navigation.explore"

@@ -54,7 +54,6 @@ class thursday : Fragment() {
     override fun onStart() {
         super.onStart()
 
-
         var db = Firebase.firestore
 
         var auth = Firebase.auth
@@ -66,20 +65,11 @@ class thursday : Fragment() {
         lateinit var subject: String
         lateinit var time: String
 
-
         val textvieww = view?.findViewById<TextView>(R.id.textview1)
         if (textvieww != null) {
             textvieww.text = "Thursday"
         }
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
         fun calltimepicker(textview: TextView) {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->

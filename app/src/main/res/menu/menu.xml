@@ -70,7 +70,7 @@
         />
 
     <item
-        android:title = "User"
+        android:title = "Home"
         android:id = "@+id/user"
         android:icon="@drawable/user"
         />
