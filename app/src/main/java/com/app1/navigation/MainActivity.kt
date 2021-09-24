@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        val calendar = Calendar.getInstance()
+        /*val calendar = Calendar.getInstance()
 
         val day = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(saturday1)
             }*/
 
-        }
+        }*/
 
         val immg = findViewById<ImageView>(R.id.immg)
 

@@ -10,32 +10,32 @@
         android:name="com.app1.navigation.sunday"
         android:label="activity_sunday"
         tools:layout="@layout/activity_sunday" />
-    <activity
+    <fragment
         android:id="@+id/monday"
         android:name="com.app1.navigation.monday"
         android:label="activity_monday"
-        tools:layout="@layout/activity_monday" />
-    <activity
+        tools:layout="@layout/fragment_monday" />
+    <fragment
         android:id="@+id/tuesday"
         android:name="com.app1.navigation.tuesday"
         android:label="activity_tuesday"
-        tools:layout="@layout/activity_monday" />
-    <activity
+        tools:layout="@layout/fragment_monday" />
+    <fragment
         android:id="@+id/wednesday"
         android:name="com.app1.navigation.wednesday"
         android:label="activity_wednesday"
         tools:layout="@layout/activity_monday" />
-    <activity
+    <fragment
         android:id="@+id/thursday"
         android:name="com.app1.navigation.thursday"
         android:label="activity_thursday"
         tools:layout="@layout/activity_monday" />
-    <activity
+    <fragment
         android:id="@+id/friday"
         android:name="com.app1.navigation.friday"
         android:label="activity_friday"
         tools:layout="@layout/activity_monday" />
-    <activity
+    <fragment
         android:id="@+id/saturday"
         android:name="com.app1.navigation.saturday"
         android:label="activity_saturday"

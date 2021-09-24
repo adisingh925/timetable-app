@@ -1,14 +1,14 @@
 package com.app1.navigation
 
-import android.app.*
+import android.app.AlertDialog
+import android.app.TimePickerDialog
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,88 +19,63 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.coroutines.EmptyCoroutineContext.get
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
-class saturday : AppCompatActivity()
-{
+/**
+ * A simple [Fragment] subclass.
+ * Use the [saturda.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class saturday : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
 
-    private val importance1 = NotificationManager.IMPORTANCE_DEFAULT
-
-    private lateinit var notificationmanager1: NotificationManager
-
-    private val groupId_1_id =  "group1"
-    private val groupId_2_id =  "group2"
-    private val groupId_1_name =  "Days_foreground_channel"
-    private val groupId_2_name =  "Days_background_channel"
-
-    private fun createnotificationchannel1()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            val notificationManager = getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannelGroup(NotificationChannelGroup(groupId_1_id, groupId_1_name))
-
-            val channel1 = NotificationChannel("17","saturday_foreground",importance1)
-            channel1.description = "This is channel_foreground 1"
-            channel1.group = groupId_1_id
-            notificationmanager1 = getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationmanager1.createNotificationChannel(channel1)
-        }
-    }
-
-    private fun createnotificationchannel2()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            val notificationManager = getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannelGroup(NotificationChannelGroup(groupId_2_id, groupId_2_name))
-
-            val channel1 = NotificationChannel("25","saturday_background",importance1)
-            channel1.description = "This is channel_background 1"
-            channel1.group = groupId_2_id
-            notificationmanager1 = getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationmanager1.createNotificationChannel(channel1)
-        }
-    }
-
-    private var db = Firebase.firestore
-
-    private var auth = Firebase.auth
-
-    private var timetabledata = mutableListOf<dataclass>()
-
-    private var rcv1 = myadapter(timetabledata)
-
-    private lateinit var subject:String
-    private lateinit var time:String
-    private lateinit var cali:Calendar
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var pendingIntent: PendingIntent
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_monday)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
 
-        val textvieww = findViewById<TextView>(R.id.textview1)
-        textvieww.text = "Saturday"
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_monday, container, false)
+    }
 
-        createnotificationchannel1()
-        createnotificationchannel2()
+    override fun onStart() {
+        super.onStart()
+
+        var db = Firebase.firestore
+
+        var auth = Firebase.auth
+
+        var timetabledata = mutableListOf<dataclass>()
+
+        var rcv1 = myadapter(timetabledata)
+
+        lateinit var subject: String
+        lateinit var time: String
+
+        val textvieww = view?.findViewById<TextView>(R.id.textview1)
+        if (textvieww != null) {
+            textvieww.text = "Saturday"
+        }
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        val build1 = NotificationCompat.Builder(this,"17")
-            .setContentTitle("TimeTable")
-            .setContentText("Data Updated for Saturday")
-            .setAutoCancel(true)
-            .setSmallIcon(R.drawable.setting)
-            .setTimeoutAfter(5000)
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +88,7 @@ class saturday : AppCompatActivity()
                 textview.text = SimpleDateFormat("hh:mm a").format(cal.time)
             }
             TimePickerDialog(
-                this,
+                this.context,
                 timeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
                 cal.get(Calendar.MINUTE),
@@ -128,12 +103,14 @@ class saturday : AppCompatActivity()
 
         var i = 1
 
-        var attach = findViewById<ImageView>(R.id.attach_file)
+        var attach = view?.findViewById<ImageView>(R.id.attach_file)
 
-        attach.setOnClickListener()
-        {
-            var intent = Intent(this@saturday,monday_data::class.java)
-            startActivity(intent)
+        if (attach != null) {
+            attach.setOnClickListener()
+            {
+                var intent = Intent(this.context,monday_data::class.java)
+                startActivity(intent)
+            }
         }
 
         var putdata = db.collection("user data").document("user data").collection(globalname).document("saturday")
@@ -157,66 +134,67 @@ class saturday : AppCompatActivity()
 
         }.addOnFailureListener()
         {
-            Toast.makeText(this,"unable to fetch data",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context,"unable to fetch data", Toast.LENGTH_SHORT).show()
         }
 
-        var rcv = findViewById<RecyclerView>(R.id.recyclerview)
+        var rcv = view?.findViewById<RecyclerView>(R.id.recyclerview)
 
-        var back = findViewById<ImageButton>(R.id.imageview)
+        var back = view?.findViewById<ImageButton>(R.id.imageview)
 
-        back.setOnClickListener()
-        {
-           // notificationmanager1.notify(1,build1.build())
-            finish()
-        }
 
-        var add = findViewById<ImageView>(R.id.floatingActionButton)
+        var add = view?.findViewById<ImageView>(R.id.floatingActionButton)
 
-        add.setOnClickListener()
-        {
-
-            var viewgroup:ViewGroup = findViewById(android.R.id.content)
-            var builder = AlertDialog.Builder(this)
-            var view1:View = LayoutInflater.from(this).inflate(R.layout.customdialog,viewgroup,false)
-            builder.setCancelable(false)
-            builder.setView(view1)
-
-            var close = view1.findViewById<Button>(R.id.cancel)
-            var done = view1.findViewById<Button>(R.id.done)
-            var edittext1 = view1.findViewById<EditText>(R.id.edittext1)
-            var button = view1.findViewById<Button>(R.id.button2)
-
-            var alertDialog:AlertDialog = builder.create()
-            alertDialog.show()
-
-            close.setOnClickListener()
+        if (add != null) {
+            add.setOnClickListener()
             {
-                alertDialog.dismiss()
-            }
 
-            button.setOnClickListener()
-            {
-                calltimepicker(button)
-            }
+                var viewgroup:ViewGroup? = view?.findViewById(android.R.id.content)
+                var builder = AlertDialog.Builder(this.context)
+                var view1:View = LayoutInflater.from(this.context).inflate(R.layout.customdialog,viewgroup,false)
+                builder.setCancelable(false)
+                builder.setView(view1)
 
-            done.setOnClickListener()
-            {
-                alertDialog.dismiss()
-                subject = edittext1.text.toString()
-                time = button.text.toString()
-                var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
-                db.collection("user data").document("user data").collection(globalname).document("saturday")
-                    .set(data1, SetOptions.merge())
-                timetabledata.add(dataclass(subject,time))
-                rcv1.notifyDataSetChanged()
-                setalarm(i)
-                i++;
+                var close = view1.findViewById<Button>(R.id.cancel)
+                var done = view1.findViewById<Button>(R.id.done)
+                var edittext1 = view1.findViewById<EditText>(R.id.edittext1)
+                var button = view1.findViewById<Button>(R.id.button2)
 
+                var alertDialog: AlertDialog = builder.create()
+                alertDialog.show()
+
+                close.setOnClickListener()
+                {
+                    alertDialog.dismiss()
+                }
+
+                button.setOnClickListener()
+                {
+                    calltimepicker(button)
+                }
+
+                done.setOnClickListener()
+                {
+                    alertDialog.dismiss()
+                    subject = edittext1.text.toString()
+                    time = button.text.toString()
+                    var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
+                    db.collection("user data").document("user data").collection(globalname).document("saturday")
+                        .set(data1, SetOptions.merge())
+                    timetabledata.add(dataclass(subject,time))
+                    rcv1.notifyDataSetChanged()
+
+                    i++;
+
+                }
             }
         }
 
-        rcv.adapter = rcv1
-        rcv.layoutManager = LinearLayoutManager(this)
+        if (rcv != null) {
+            rcv.adapter = rcv1
+        }
+        if (rcv != null) {
+            rcv.layoutManager = LinearLayoutManager(this.context)
+        }
 
         val swipeflag = ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
         val dragflag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
@@ -250,7 +228,7 @@ class saturday : AppCompatActivity()
                 val position = viewHolder.adapterPosition
                 val temp = position+1
                 timetabledata.removeAt(position)
-                cancelalarm(temp)
+
                 rcv1.notifyItemRemoved(position)
                 rcv1.notifyDataSetChanged()
                 var deletedata = db.collection("user data").document("user data").collection(globalname).document("saturday")
@@ -266,61 +244,5 @@ class saturday : AppCompatActivity()
                 }
             }
         }).attachToRecyclerView(rcv)
-    }
-
-    private fun setalarm(i:Int)
-    {
-       /* var ff = db.collection("user data").document("user data").collection(globalname).document("saturday")
-
-        ff.get().addOnSuccessListener {
-                document ->
-            if(document.getString("time$i")!=null)
-            {
-                cali = Calendar.getInstance()
-                var timee = document.getString("time$i").toString()
-                var subb = document.getString("subject$i").toString()
-                var cv1 = timee[0].toString()
-                var cv2 = timee[1].toString()
-                var cv3 = cv1.toInt()
-                var cv4 = cv2.toInt()
-                cv3 *= 10
-                var hourr = cv3+cv4
-                var cv5 = timee[3].toString()
-                var cv6 = timee[4].toString()
-                var cv7 = cv5.toInt()
-                var cv8 = cv6.toInt()
-                cv7 *= 10
-                var minutee = cv7+cv8
-                cali[Calendar.DAY_OF_WEEK] = 6
-                cali[Calendar.HOUR_OF_DAY] = hourr
-                cali[Calendar.MINUTE] = minutee
-                cali[Calendar.SECOND] = 0
-                cali[Calendar.MILLISECOND] = 0
-
-                alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-                var intent = Intent(this, saturdayalarmmanager::class.java)
-                intent.putExtra("content title","Saturday Schedule")
-                intent.putExtra("content text", "You have $subb class from $timee")
-                intent.putExtra("uniqueno",i)
-                pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-                alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP, cali.timeInMillis,
-                    AlarmManager.INTERVAL_DAY*7, pendingIntent
-                )
-                Toast.makeText(this, "alarm set successfully", Toast.LENGTH_SHORT).show()
-            }
-        }*/
-    }
-
-    private fun cancelalarm(i:Int)
-    {
-      /*  alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this,saturdayalarmmanager::class.java)
-        pendingIntent = PendingIntent.getBroadcast(this,i,intent,0)
-
-        alarmManager.cancel(pendingIntent)
-
-        Toast.makeText(this,"alarm canceled",Toast.LENGTH_SHORT).show()*/
     }
 }
