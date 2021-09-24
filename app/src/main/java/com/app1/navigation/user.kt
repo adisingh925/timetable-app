@@ -92,12 +92,12 @@ class user : Fragment() {
 
                 val uuri = document.getString("imgpath")
 
-                Glide
+                /*Glide
                     .with(this)
                     .load(uuri)
                     .circleCrop()
                     .placeholder(R.drawable.placeholder)
-                    .into(imageview)
+                    .into(imageview)*/
             }
         }
 

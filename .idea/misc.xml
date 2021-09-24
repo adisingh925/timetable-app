@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/drawable/ripple.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/activity_explore.xml" value="0.1" />
-        <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/activity_monday.xml" value="0.1796875" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/cardview.xml" value="0.11911231884057971" />
@@ -17,6 +17,8 @@
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/fragment_tuesda.xml" value="0.1796875" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/fragment_user.xml" value="0.10552536231884058" />
         <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/layout/navheader.xml" value="0.1796875" />
+        <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/menu/bottomnavmenu.xml" value="0.1796875" />
+        <entry key="..\:/Users/adisi/AndroidStudioProjects/Navigation/app/src/main/res/menu/menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>
