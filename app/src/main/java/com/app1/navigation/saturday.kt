@@ -9,10 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -71,7 +71,6 @@ class saturday : Fragment() {
         }
 
 
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -79,8 +78,7 @@ class saturday : Fragment() {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        fun calltimepicker(textview: TextView)
-        {
+        fun calltimepicker(textview: TextView) {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 cal.set(Calendar.HOUR_OF_DAY, hour)
@@ -98,31 +96,26 @@ class saturday : Fragment() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////
-        var data = db.collection("user data").document("user data").collection(globalname).document("saturday")
+        var data = db.collection("user data").document("user data").collection(globalname)
+            .document("saturday")
         ///////////////////////////////////////////////////////////////////
 
         var i = 1
 
-        var attach = view?.findViewById<ImageView>(R.id.attach_file)
-
-        if (attach != null) {
-            attach.setOnClickListener()
-            {
-                var intent = Intent(this.context,monday_data::class.java)
-                startActivity(intent)
-            }
+        view?.findViewById<FloatingActionButton>(R.id.attach_file)?.setOnClickListener()
+        {
+            var intent = Intent(this.context, monday_data::class.java)
+            startActivity(intent)
         }
 
-        var putdata = db.collection("user data").document("user data").collection(globalname).document("saturday")
+        var putdata = db.collection("user data").document("user data").collection(globalname)
+            .document("saturday")
 
         putdata.get().addOnSuccessListener()
-        {
-                document ->
-            if(document.exists())
-            {
-                for(m in 1..10)
-                {
-                    if(document.getString("subject$m")!=null) {
+        { document ->
+            if (document.exists()) {
+                for (m in 1..10) {
+                    if (document.getString("subject$m") != null) {
                         var d1 = document.getString("subject$m").toString()
                         var d2 = document.getString("time$m").toString()
                         timetabledata.add(dataclass(d1, d2))
@@ -134,7 +127,7 @@ class saturday : Fragment() {
 
         }.addOnFailureListener()
         {
-            Toast.makeText(this.context,"unable to fetch data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "unable to fetch data", Toast.LENGTH_SHORT).show()
         }
 
         var rcv = view?.findViewById<RecyclerView>(R.id.recyclerview)
@@ -148,9 +141,10 @@ class saturday : Fragment() {
             add.setOnClickListener()
             {
 
-                var viewgroup:ViewGroup? = view?.findViewById(android.R.id.content)
+                var viewgroup: ViewGroup? = view?.findViewById(android.R.id.content)
                 var builder = AlertDialog.Builder(this.context)
-                var view1:View = LayoutInflater.from(this.context).inflate(R.layout.customdialog,viewgroup,false)
+                var view1: View = LayoutInflater.from(this.context)
+                    .inflate(R.layout.customdialog, viewgroup, false)
                 builder.setCancelable(false)
                 builder.setView(view1)
 
@@ -178,9 +172,10 @@ class saturday : Fragment() {
                     subject = edittext1.text.toString()
                     time = button.text.toString()
                     var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
-                    db.collection("user data").document("user data").collection(globalname).document("saturday")
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("saturday")
                         .set(data1, SetOptions.merge())
-                    timetabledata.add(dataclass(subject,time))
+                    timetabledata.add(dataclass(subject, time))
                     rcv1.notifyDataSetChanged()
 
                     i++;
@@ -210,14 +205,20 @@ class saturday : Fragment() {
                 Collections.swap(timetabledata, startposition, endposition)
                 rcv1.notifyItemMoved(startposition, endposition)
 
-                var deletedata = db.collection("user data").document("user data").collection(globalname).document("saturday")
+                var deletedata =
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("saturday")
                 deletedata.delete()
-                i=1
+                i = 1
 
-                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("saturday")
-                for(m in 1..(timetabledata.lastIndex+1))
-                {
-                    val update = hashMapOf("subject$m" to timetabledata[m-1].name, "time$m" to timetabledata[m-1].time)
+                val rewritedata =
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("saturday")
+                for (m in 1..(timetabledata.lastIndex + 1)) {
+                    val update = hashMapOf(
+                        "subject$m" to timetabledata[m - 1].name,
+                        "time$m" to timetabledata[m - 1].time
+                    )
                     rewritedata.set(update, SetOptions.merge())
                     i++
                 }
@@ -226,19 +227,25 @@ class saturday : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val temp = position+1
+                val temp = position + 1
                 timetabledata.removeAt(position)
 
                 rcv1.notifyItemRemoved(position)
                 rcv1.notifyDataSetChanged()
-                var deletedata = db.collection("user data").document("user data").collection(globalname).document("saturday")
+                var deletedata =
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("saturday")
                 deletedata.delete()
-                i=1
+                i = 1
 
-                val rewritedata = db.collection("user data").document("user data").collection(globalname).document("saturday")
-                for(m in 1..(timetabledata.lastIndex+1))
-                {
-                    val update = hashMapOf("subject$m" to timetabledata[m-1].name, "time$m" to timetabledata[m-1].time)
+                val rewritedata =
+                    db.collection("user data").document("user data").collection(globalname)
+                        .document("saturday")
+                for (m in 1..(timetabledata.lastIndex + 1)) {
+                    val update = hashMapOf(
+                        "subject$m" to timetabledata[m - 1].name,
+                        "time$m" to timetabledata[m - 1].time
+                    )
                     rewritedata.set(update, SetOptions.merge())
                     i++
                 }

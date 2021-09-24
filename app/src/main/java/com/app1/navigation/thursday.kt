@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -103,7 +104,7 @@ class thursday : Fragment() {
 
         var i = 1
 
-        view?.findViewById<ImageView>(R.id.attach_file)?.setOnClickListener()
+        view?.findViewById<FloatingActionButton>(R.id.attach_file)?.setOnClickListener()
         {
             var intent = Intent(this.context, monday_data::class.java)
             startActivity(intent)
