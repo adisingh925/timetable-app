@@ -63,20 +63,13 @@ class user : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val x = view?.findViewById<TextView>(R.id.textview)
 
+        val x = view?.findViewById<TextView>(R.id.textview)
 
         val y = view?.findViewById<TextView>(R.id.textview1)
         val hh = view?.findViewById<TextView>(R.id.textview5)
 
-        imageview = view?.findViewById<ImageView>(R.id.imageview)!!
-
-        /////////////////
-
-
-
-        /////////////////
-
+        imageview = view?.findViewById(R.id.imageview)!!
 
         val z = db.collection("user data").document("user data").collection(globalname)
             .document("login credentials")

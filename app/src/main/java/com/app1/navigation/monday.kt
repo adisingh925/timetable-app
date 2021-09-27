@@ -63,7 +63,6 @@ class monday : Fragment() {
         lateinit var subject: String
         lateinit var time: String
 
-
         val textvieww = view?.findViewById<TextView>(R.id.textview1)
         if (textvieww != null) {
             textvieww.text = "Monday"

@@ -1,10 +1,12 @@
 package com.app1.navigation
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -21,30 +23,11 @@ class MainActivity : AppCompatActivity() {
 
     var auth = Firebase.auth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val settingFragment=setting()
-        val homeFragment=user()
-        val exploreFragment=explore()
-
-        setCurrentFragment(homeFragment)
-
-        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomnav)
-
-        bottomnav.setOnNavigationItemSelectedListener()
-        {
-            when(it.itemId)
-            {
-                R.id.setting->setCurrentFragment(settingFragment)
-                R.id.home->setCurrentFragment(homeFragment)
-                R.id.explore->setCurrentFragment(exploreFragment)
-            }
-            true
-        }
-
+        //firebase inapp messaging
         Firebase.messaging.subscribeToTopic("weather")
             .addOnCompleteListener { task ->
                 var msg = "success"
@@ -53,15 +36,41 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        val immg = findViewById<ImageView>(R.id.immg)
+        ////////////////////////////////////////////////////////////////////////////////////////
+        //bottom navigation bar
+        val user=user()
+        val setting=setting()
+        val explore=explore()
+
+        setCurrentFragment(user)
+
+        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomnavbar)
+
+        bottomnav.setOnNavigationItemSelectedListener()
+        {
+            when(it.itemId)
+            {
+                R.id.user1->{
+                    setCurrentFragment(user)
+                }
+                R.id.setting1->{
+                    setCurrentFragment(setting)
+                }
+                R.id.explore1->{
+                    setCurrentFragment(explore)
+                }
+            }
+            true
+        }
+        //////////////////////////////////////////////////////////////////////////////////////
 
         val logout = findViewById<ImageView>(R.id.imageview1)
 
         logout.setOnClickListener()
         {
             auth.signOut()
-            val inte = Intent(this@MainActivity,loginactivity::class.java)
-            startActivity(inte)
+            val intent = Intent(this@MainActivity,loginactivity::class.java)
+            startActivity(intent)
         }
 
         val drawerlayout = findViewById<DrawerLayout>(R.id.drawerlayout)
@@ -78,8 +87,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCurrentFragment(fragment: Fragment)=
-        supportFragmentManager.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply{
             replace(R.id.fragmentContainerView,fragment)
             commit()
         }
+
 }

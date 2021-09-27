@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id = "@+id/drawerlayout"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -37,9 +38,9 @@
             android:id="@+id/textview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="85dp"
             android:text="Time Table"
-            android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -63,26 +64,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="60dp"
         app:defaultNavHost="true"
-        android:layout_marginBottom="?actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:navGraph="@navigation/navigationfragments" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomnav"
-                android:layout_width="wrap_content"
-                app:itemRippleColor="@color/black"
-                android:background="@color/white"
-                app:labelVisibilityMode="labeled"
-                app:itemIconTint="@color/black"
-                app:itemTextColor="@color/black"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:menu="@menu/bottomnavmenu"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:itemRippleColor="@color/black"
+        app:itemIconSize="30dp"
+        app:itemIconTint="#3366CC"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottomnavmenu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,11 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity = "start"
-        android:background="@color/white"
-        app:itemTextColor="#00008B"
-        app:itemIconTint="#00008B"
-        app:itemIconSize="35dp"
-        android:clickable="true"
         app:headerLayout="@layout/navheader"
         app:menu = "@menu/menu"/>
 

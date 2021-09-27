@@ -66,13 +66,15 @@
     <item
         android:title = "Setting"
         android:id = "@+id/settings"
+        android:iconTint="#C0392B"
         android:icon="@drawable/setting"
         />
 
     <item
         android:title = "Home"
         android:id = "@+id/user"
-        android:icon="@drawable/user"
+        android:iconTint="#2E86C1"
+        android:icon="@drawable/ic_baseline_home_24"
         />
 
         </menu>
