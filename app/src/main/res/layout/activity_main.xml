@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id = "@+id/drawerlayout"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,11 +26,11 @@
 
         <ImageButton
             android:id="@+id/imageview"
-            android:backgroundTint="#3366CC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#3366CC"
             android:src="@drawable/hamburger"
             app:tint="#FFFFFF" />
 
@@ -64,24 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?actionBarSize"
-        android:layout_marginBottom="60dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:navGraph="@navigation/navigationfragments" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomnavbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:itemRippleColor="@color/black"
-        app:itemIconSize="30dp"
-        app:itemIconTint="#3366CC"
-        app:itemTextColor="@color/black"
-        app:labelVisibilityMode="selected"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottomnavmenu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,6 +76,7 @@
         android:id = "@+id/navigationview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:itemIconSize="30dp"
         android:layout_gravity = "start"
         app:headerLayout="@layout/navheader"
         app:menu = "@menu/menu"/>
