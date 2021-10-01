@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">#3366CC</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ThemeOverlay.AppCompat.navTheme">
+
+        <!-- Color of text and icon when SELECTED -->
+        <item name="colorPrimary">@color/green</item>
+        <!-- Background color when SELECTED -->
+        <item name="colorControlHighlight">@color/green</item>
+
+    </style>
 </resources>

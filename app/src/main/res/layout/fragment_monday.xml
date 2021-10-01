@@ -7,36 +7,9 @@
     android:background="#FFFFFF"
     tools:context=".monday">
 
-
-    <RelativeLayout
-        android:id="@+id/linearLayout"
-        android:backgroundTint="#3366CC"
-        android:layout_width="wrap_content"
-        android:layout_height="?actionBarSize"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="85dp"
-            android:text="Monday"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
         android:id="@+id/recyclerview"
         tools:listitem="@layout/cardview" />
 

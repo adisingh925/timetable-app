@@ -3,6 +3,7 @@
 
    <item android:title = "Day">
        <menu>
+           <group android:checkableBehavior="single">
     <item
 
         android:title = "Sunday"
@@ -51,6 +52,7 @@
         android:id = "@+id/saturday"
         android:icon = "@drawable/day"
         />
+           </group>
 
        </menu>
    </item>
@@ -58,6 +60,7 @@
     <item android:title = "Communication">
 
         <menu>
+            <group android:checkableBehavior="single">
     <item
         android:title = "Explore"
         android:id = "@+id/explore"
@@ -75,6 +78,7 @@
         android:iconTint="@color/purple_500"
         android:icon="@drawable/ic_baseline_home_24"
         />
+            </group>
 
         </menu>
     </item>

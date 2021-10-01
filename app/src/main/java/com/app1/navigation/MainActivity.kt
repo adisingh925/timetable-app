@@ -1,20 +1,16 @@
 package com.app1.navigation
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.MotionEvent
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -51,15 +47,66 @@ class MainActivity : AppCompatActivity() {
 
         drawerlayout = findViewById<DrawerLayout>(R.id.drawerlayout)
 
-        val navigationview = findViewById<NavigationView>(R.id.navigationview)
+        val textview = findViewById<TextView>(R.id.textview1)
+
+        val Navigationview = findViewById<NavigationView>(R.id.navigationview)
+
+        Navigationview.setNavigationItemSelectedListener {
+            when(it.itemId)
+            {
+                R.id.sunday->{
+                    setCurrentFragment(sunday())
+                    textview.text="Sunday"
+                }
+                R.id.monday->{
+                    setCurrentFragment(monday())
+                    textview.text="Monday"
+                }
+                R.id.tuesday->{
+                    setCurrentFragment(tuesday())
+                    textview.text="Tuesday"
+                }
+                R.id.wednesday->{
+                    setCurrentFragment(wednesday())
+                    textview.text="Wednesday"
+                }
+                R.id.thursday->{
+                    setCurrentFragment(thursday())
+                    textview.text="Thursday"
+                }
+                R.id.friday->{
+                    setCurrentFragment(friday())
+                    textview.text="Friday"
+                }
+                R.id.saturday->{
+                    setCurrentFragment(saturday())
+                    textview.text="Saturday"
+                }
+                R.id.explore->{
+                    setCurrentFragment(explore())
+                    textview.text="Explore"
+                }
+                R.id.user->{
+                    setCurrentFragment(user())
+                    textview.text="Home"
+                }
+                R.id.settings->{
+                    setCurrentFragment(setting())
+                    textview.text="Setting"
+                }
+                else -> textview.text=""
+            }
+            drawerlayout.closeDrawer(GravityCompat.START)
+            true
+        }
 
         findViewById<ImageView>(R.id.imageview).setOnClickListener()
         {
             drawerlayout.openDrawer(GravityCompat.START)
         }
 
-        val navcontroller = Navigation.findNavController(this, R.id.fragmentContainerView)
-        NavigationUI.setupWithNavController(navigationview, navcontroller)
+        /*val navcontroller = Navigation.findNavController(this, R.id.fragmentContainerView)
+        NavigationUI.setupWithNavController(Navigationview, navcontroller)*/
     }
 
     override fun onBackPressed() {
@@ -72,4 +119,10 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    private fun setCurrentFragment(fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainerView,fragment)
+            commit()
+        }
 }
