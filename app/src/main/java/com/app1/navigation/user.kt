@@ -71,12 +71,12 @@ class user : Fragment() {
 
         imageview = view?.findViewById(R.id.imageview)!!
 
-        val z = db.collection("user data").document("user data").collection(globalname)
+        val z = db.collection("userdata").document("userdata").collection(auth.uid!!)
             .document("login credentials")
         z.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 if (y != null) {
-                    y.text = document.getString("username")
+                    y.text = document.getString("name")
 
                 }
                 if (hh != null) {
@@ -96,7 +96,7 @@ class user : Fragment() {
 
         val ff = view?.findViewById<TextView>(R.id.textview3)
         if (ff != null) {
-            ff.text = globalname
+            ff.text = auth.uid!!
         }
 
         imageview?.setOnClickListener()
@@ -116,12 +116,12 @@ class user : Fragment() {
                 uri = data.data!!
 
                 var syst = System.currentTimeMillis()
-                var imgref = storageref.child("$globalname/$syst.pdf")
+                var imgref = storageref.child("$auth.uid!!/$syst.pdf")
                 imgref.putFile(uri).addOnSuccessListener()
                 {
                     Toast.makeText(this@user.context,"Upload Success",Toast.LENGTH_SHORT).show()
 
-                    storageref.child("$globalname/$syst.pdf").downloadUrl.addOnSuccessListener()
+                    storageref.child("$auth.uid!!/$syst.pdf").downloadUrl.addOnSuccessListener()
                     {
                             url ->
                         var hmp = hashMapOf("imgpath" to url.toString())
@@ -134,12 +134,12 @@ class user : Fragment() {
                             .into(imageview)
 
 
-                        db.collection("user data").document("user data").collection(globalname)
+                        db.collection("userdata").document("userdata").collection(auth.uid!!)
                             .document("login credentials").set(hmp, SetOptions.merge())
 
-                        val ppt = hashMapOf(globalname to url.toString())
+                        val ppt = hashMapOf(auth.uid!! to url.toString())
 
-                        db.collection("user data").document("user data").collection("usernames")
+                        db.collection("userdata").document("userdata").collection("usernames")
                             .document("usernames").set(ppt, SetOptions.merge())
 
                     }

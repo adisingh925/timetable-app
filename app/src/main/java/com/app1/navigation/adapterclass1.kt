@@ -41,7 +41,7 @@ class myadapter1(val names: List<filenames>): RecyclerView.Adapter<myadapter1.my
             {
                 val db = Firebase.firestore
                 val auth = Firebase.auth
-                var recieve = db.collection("user data").document("user data").collection(globalname).document("system_time")
+                var recieve = db.collection("userdata").document("userdata").collection(auth.uid!!).document("system_time")
                 recieve.get().addOnSuccessListener()
                 { document ->
                     val inte = Intent(Intent.ACTION_VIEW)

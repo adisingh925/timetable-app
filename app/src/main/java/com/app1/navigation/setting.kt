@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -47,28 +48,40 @@ class setting : Fragment() {
 
         val db = Firebase.firestore
 
-        val back = view?.findViewById<ImageView>(R.id.imageview)
+        val auth = Firebase.auth
+
+        var num = 0;
 
         val switch = view?.findViewById<Switch>(R.id.switch1)
 
-        val x = db.collection("user data").document("user data").collection("usernames").document("usernames")
+        val x = db.collection("userdata").document("explore")
 
         x.get().addOnSuccessListener()
         {
                 document->
+            num = document.getString(auth.uid.toString())?.toInt()!!
 
-            if (switch != null) {
-                switch.isChecked = document.getString("${globalname}status") != "false"
+            if(document.getString("status$num") == "false")
+            {
+                if (switch != null) {
+                    switch.isChecked = false
+                }
+            }
+            else
+            {
+                if (switch != null) {
+                    switch.isChecked = true
+                }
             }
         }
 
         switch?.setOnClickListener()
         {
             if (switch.isChecked) {
-                var update = hashMapOf("${globalname}status" to "true")
+                var update = hashMapOf("status$num" to "true")
                 x.set(update, SetOptions.merge())
             } else {
-                var update = hashMapOf("${globalname}status" to "false")
+                var update = hashMapOf("status$num" to "false")
                 x.set(update, SetOptions.merge())
             }
         }

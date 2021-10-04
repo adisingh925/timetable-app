@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -47,6 +48,8 @@ class explore : Fragment() {
 
         val db = Firebase.firestore
 
+        val auth = Firebase.auth
+
         val back = view?.findViewById<ImageView>(R.id.imageview)
 
         val usernames = mutableListOf<exploredataclass>()
@@ -63,7 +66,7 @@ class explore : Fragment() {
             rcv.layoutManager = LinearLayoutManager(this.context)
         }
 
-        val x = db.collection("user data").document("user data").collection("usernames").document("usernames")
+        val x = db.collection("userdata").document("explore")
 
         x.get().addOnSuccessListener()
         {
@@ -71,25 +74,25 @@ class explore : Fragment() {
 
             if(document.exists())
             {
-                var value = document.getString("value")?.toInt()
-
+                var value = document.getString("count")?.toInt()
 
                 for(i in 1..value!!)
                 {
-                    var names = document.getString("username$i")
-                    var status = document.getString("${names.toString()}status").toString()
-                    var imagepath = document.getString(names.toString())
-                    if(imagepath == null && status == "false")
-                    {
-                        usernames.add(exploredataclass(names!!, "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"))
-                        rcv1.notifyDataSetChanged()
+                        var names = document.getString("username$i")
+                        var status = document.getString("status$i")
+                        var imagepath = document.getString("userimage$i")
+                        if(imagepath == null && status == "false")
+                        {
+                            usernames.add(exploredataclass(names!!, "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"))
+                            rcv1.notifyDataSetChanged()
+                        }
+                        else if(imagepath != null && status == "false"){
+                            usernames.add(exploredataclass(names!!, imagepath))
+                            rcv1.notifyDataSetChanged()
+                        }
                     }
-                    else if(imagepath != null && status == "false"){
-                        usernames.add(exploredataclass(names!!, imagepath))
-                        rcv1.notifyDataSetChanged()
-                    }
+
                 }
             }
         }
     }
-}

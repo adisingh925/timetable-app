@@ -42,7 +42,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView4"
             android:ems="10"
-            android:hint = "Username"
+            android:hint = "Email"
             android:textColorHint="#80FFFFFF"
             android:backgroundTint = "#FFFFFF"
             android:inputType="textEmailAddress"

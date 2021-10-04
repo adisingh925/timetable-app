@@ -96,7 +96,7 @@ class saturday : Fragment() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////
-        var data = db.collection("user data").document("user data").collection(globalname)
+        var data = db.collection("userdata").document("userdata").collection(auth.uid!!)
             .document("saturday")
         ///////////////////////////////////////////////////////////////////
 
@@ -108,7 +108,7 @@ class saturday : Fragment() {
             startActivity(intent)
         }
 
-        var putdata = db.collection("user data").document("user data").collection(globalname)
+        var putdata = db.collection("userdata").document("userdata").collection(auth.uid!!)
             .document("saturday")
 
         putdata.get().addOnSuccessListener()
@@ -172,7 +172,7 @@ class saturday : Fragment() {
                     subject = edittext1.text.toString()
                     time = button.text.toString()
                     var data1 = hashMapOf("subject$i" to subject, "time$i" to time)
-                    db.collection("user data").document("user data").collection(globalname)
+                    db.collection("userdata").document("userdata").collection(auth.uid!!)
                         .document("saturday")
                         .set(data1, SetOptions.merge())
                     timetabledata.add(dataclass(subject, time))
@@ -206,13 +206,13 @@ class saturday : Fragment() {
                 rcv1.notifyItemMoved(startposition, endposition)
 
                 var deletedata =
-                    db.collection("user data").document("user data").collection(globalname)
+                    db.collection("userdata").document("userdata").collection(auth.uid!!)
                         .document("saturday")
                 deletedata.delete()
                 i = 1
 
                 val rewritedata =
-                    db.collection("user data").document("user data").collection(globalname)
+                    db.collection("userdata").document("userdata").collection(auth.uid!!)
                         .document("saturday")
                 for (m in 1..(timetabledata.lastIndex + 1)) {
                     val update = hashMapOf(
@@ -233,13 +233,13 @@ class saturday : Fragment() {
                 rcv1.notifyItemRemoved(position)
                 rcv1.notifyDataSetChanged()
                 var deletedata =
-                    db.collection("user data").document("user data").collection(globalname)
+                    db.collection("userdata").document("userdata").collection(auth.uid!!)
                         .document("saturday")
                 deletedata.delete()
                 i = 1
 
                 val rewritedata =
-                    db.collection("user data").document("user data").collection(globalname)
+                    db.collection("userdata").document("userdata").collection(auth.uid!!)
                         .document("saturday")
                 for (m in 1..(timetabledata.lastIndex + 1)) {
                     val update = hashMapOf(

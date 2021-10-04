@@ -12,109 +12,70 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-var globalname:String = "hi"
-
 class loginactivity : AppCompatActivity() {
-    lateinit var email: String
 
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginactivity)
 
-        var flag = 0
-
         auth = Firebase.auth
 
-        val db = Firebase.firestore
+        val email = findViewById<EditText>(R.id.editTextTextPersonName)
 
-        val name = findViewById<EditText>(R.id.editTextTextPersonName)
-
-        val pass = findViewById<EditText>(R.id.editTextTextPassword)
+        val password = findViewById<EditText>(R.id.editTextTextPassword)
 
         val register = findViewById<Button>(R.id.button22)
 
-        val resetp = findViewById<TextView>(R.id.textView6)
+        val resetPassword = findViewById<TextView>(R.id.textView6)
 
         val proceed = findViewById<Button>(R.id.button99)
 
-        val imageview4 = findViewById<ImageView>(R.id.imageView4)
+        val imageview = findViewById<ImageView>(R.id.imageView4)
 
-        Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(imageview4)
+        Glide.with(this).load(R.mipmap.ic_launcher_foreground).circleCrop().into(imageview)
 
+        if (auth.currentUser != null)
+        {
+            val intent = Intent(this@loginactivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-        if (auth.currentUser != null) {
-
-            val dbs = db.collection("userdata").document("username").collection("userid")
-                .document(auth.uid.toString())
-            dbs.get().addOnSuccessListener()
-            { document ->
-                if (document.exists()) {
-                    val data = document.getString(auth.uid.toString())
-                    if (data != null) {
-                        globalname = data
-                    }
-                    val intentt = Intent(this@loginactivity, MainActivity::class.java)
-                    startActivity(intentt)
-                    finish()
-                }
-            }
-
-        } else {
-
+        else {
             proceed.setOnClickListener()
             { view ->
+
                 var x = 0
 
-                if (name.text.toString().isEmpty() || pass.text.toString().isEmpty()) {
+                if (email.text.toString().isEmpty() || password.text.toString().isEmpty())
+                {
                     Snackbar.make(view, "Please enter value for all fields", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(Color.DKGRAY).setTextColor(Color.WHITE).show()
                     x++;
-                } else {
-                    val docref =
-                        db.collection("user data").document("user data")
-                            .collection(name.text.toString())
-                            .document("login credentials")
+                }
 
-                    docref.get().addOnSuccessListener()
-                    { document ->
-                        var names = document.getString("username").toString()
-                        var passs = document.getString("password").toString()
-                        if ((name.text.toString() == names) && (pass.text.toString() == passs)) {
-                            if (x == 0) {
-                                auth.signInWithEmailAndPassword(
-                                    document.getString("email").toString(), pass.text.toString()
-                                )
-                                    .addOnCompleteListener(this) { task ->
-                                        if (task.isSuccessful) {
+                if (x == 0)
+                { auth.signInWithEmailAndPassword(email.text.toString(),password.text.toString())
+                    .addOnCompleteListener(this)
+                    { task ->
+                        if (task.isSuccessful)
+                        {
 
-                                            Toast.makeText(
-                                                this@loginactivity, "Authentication Successful",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-
-                                            globalname = document.getString("username").toString()
-
-                                            val abcd = hashMapOf(auth.uid.toString() to name.text.toString())
-
-                                            val docref2 = db.collection("userdata").document("username").collection("userid").document(auth.uid.toString()).set(abcd)
-
-                                            val intent =
-                                                Intent(this@loginactivity, MainActivity::class.java)
-                                            intent.putExtra("name", name.text.toString())
-                                            startActivity(intent)
-                                            finish()
-                                        } else {
-                                            Toast.makeText(
-                                                this@loginactivity, "Authentication failed.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    }
-                            }
-                        } else {
                             Toast.makeText(
-                                this@loginactivity, "Username or password is incorrect",
+                                this@loginactivity, "Login Successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            val intent = Intent(this@loginactivity, MainActivity::class.java)
+                            startActivity(intent)
+
+                        }
+
+                        else
+                        {
+                            Toast.makeText(
+                                this@loginactivity, "Login failed.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -129,12 +90,11 @@ class loginactivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            resetp.setOnClickListener()
+            resetPassword.setOnClickListener()
             {
                 val intent = Intent(this@loginactivity, passwordresetactivity::class.java)
                 startActivity(intent)
             }
         }
-
     }
 }

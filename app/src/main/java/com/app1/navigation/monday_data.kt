@@ -73,7 +73,7 @@ class monday_data : AppCompatActivity() {
         rcv.adapter = rcv1
         rcv.layoutManager = LinearLayoutManager(this)
 
-        var jumbo = db.collection("user data").document("user data").collection(globalname)
+        var jumbo = db.collection("userdata").document("userdata").collection(auth.uid!!)
             .document("system_time")
         jumbo.get().addOnSuccessListener()
         { document ->
@@ -144,7 +144,7 @@ class monday_data : AppCompatActivity() {
                     } else {
                         alertDialog.dismiss()
                         var syst = edittext.text.toString()
-                        var riversRef = storageref.child("$globalname/$syst.pdf")
+                        var riversRef = storageref.child("$auth.uid!!/$syst.pdf")
                         upload.isVisible = false
                         progbar.isVisible = true
 
@@ -157,22 +157,22 @@ class monday_data : AppCompatActivity() {
                                 progbar.isVisible = false
                                 upload.isVisible = true
                                 val cc = hashMapOf("$value" to syst)
-                                db.collection("user data").document("user data")
-                                    .collection(globalname).document("system_time").set(
+                                db.collection("userdata").document("userdata")
+                                    .collection(auth.uid!!).document("system_time").set(
                                     cc,
                                     SetOptions.merge()
                                 )
                                 val cp = hashMapOf("value" to value)
-                                db.collection("user data").document("user data")
-                                    .collection(globalname).document("system_time").set(
+                                db.collection("userdata").document("userdata")
+                                    .collection(auth.uid!!).document("system_time").set(
                                     cp,
                                     SetOptions.merge()
                                 )
-                                storageref.child("$globalname/$syst.pdf").downloadUrl.addOnSuccessListener()
+                                storageref.child("$auth.uid!!/$syst.pdf").downloadUrl.addOnSuccessListener()
                                 { uril ->
                                     var ty = hashMapOf("link${value - 1}" to uril.toString())
-                                    db.collection("user data").document("user data")
-                                        .collection(globalname).document("system_time").set(
+                                    db.collection("userdata").document("userdata")
+                                        .collection(auth.uid!!).document("system_time").set(
                                         ty,
                                         SetOptions.merge()
                                     )

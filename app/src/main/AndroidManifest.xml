@@ -3,6 +3,7 @@
     package="com.app1.navigation">
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
@@ -14,12 +15,14 @@
         <activity android:name="com.app1.navigation.passwordresetactivity" />
         <activity android:name="com.app1.navigation.registeractivity" />
         <activity android:name="com.app1.navigation.MainActivity" />
+
         <activity android:name="com.app1.navigation.animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <service
@@ -29,6 +32,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>
