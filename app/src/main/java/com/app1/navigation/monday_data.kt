@@ -99,51 +99,12 @@ class monday_data : AppCompatActivity() {
 
         upload.setOnClickListener()
         {
-            withContext(this)
-                .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(object : PermissionListener {
-                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                        val intent = Intent()
-                        intent.setType("application/pdf")
-                        intent.setAction(Intent.ACTION_GET_CONTENT)
-                        startActivityForResult(
-                            Intent.createChooser(intent, "select pdf files"),
-                            1212
-                        )
-                    }
-
-                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                        val builder = AlertDialog.Builder(this@monday_data)
-                        builder.setTitle("Need Permission")
-                            .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
-                            .setPositiveButton("go to settings", DialogInterface.OnClickListener
-                            { dialog, id ->
-
-                                val inte = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                val uri = Uri.fromParts("package", packageName, null)
-                                inte.setData(uri)
-                                startActivityForResult(inte, 101)
-
-                            })
-                            .setNegativeButton(
-                                "cancel",
-                                DialogInterface.OnClickListener { dialog, which ->
-
-                                    dialog.cancel()
-                                })
-
-                        builder.show()
-
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        permission: PermissionRequest?,
-                        token: PermissionToken?,
-                    ) {
-                        token?.continuePermissionRequest()
-                    }
-                }).check()
-
+            val intent = Intent()
+            intent.type = "application/pdf"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "select pdf files"),
+                1212)
         }
     }
 

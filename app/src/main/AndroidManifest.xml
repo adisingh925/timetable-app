@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app1.navigation">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_round"
@@ -16,18 +11,9 @@
         android:theme="@style/Theme.Navigation">
         <activity android:name="com.app1.navigation.loginactivity"></activity>
         <activity android:name="com.app1.navigation.monday_data" />
-        <activity android:name="com.app1.navigation.explore" />
-        <activity android:name="com.app1.navigation.settings" />
         <activity android:name="com.app1.navigation.passwordresetactivity" />
         <activity android:name="com.app1.navigation.registeractivity" />
         <activity android:name="com.app1.navigation.MainActivity" />
-        <activity android:name="com.app1.navigation.saturday" />
-        <activity android:name="com.app1.navigation.friday" />
-        <activity android:name="com.app1.navigation.thursday" />
-        <activity android:name="com.app1.navigation.wednesday" />
-        <activity android:name="com.app1.navigation.tuesday" />
-        <activity android:name="com.app1.navigation.monday" />
-        <activity android:name="com.app1.navigation.sunday" />
         <activity android:name="com.app1.navigation.animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,13 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver android:name="com.app1.navigation.mondayalarmmanager" />
-        <receiver android:name="com.app1.navigation.tuesdayalarmmanager" />
-        <receiver android:name="com.app1.navigation.wednesdayalarmmanager" />
-        <receiver android:name="com.app1.navigation.thursdayalarmmanager" />
-        <receiver android:name="com.app1.navigation.fridayalarmmanager" />
-        <receiver android:name="com.app1.navigation.saturdayalarmmanager" />
 
         <service
             android:name="com.app1.navigation.MyFirebaseMessagingService"

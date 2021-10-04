@@ -101,54 +101,15 @@ class user : Fragment() {
 
         imageview?.setOnClickListener()
         {
-            Dexter.withContext(imageview.context)
-                .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(object : PermissionListener {
-                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                        val intent = Intent()
-                        intent.setType("image/*")
-                        intent.setAction(Intent.ACTION_PICK)
-                        startActivityForResult(Intent.createChooser(intent, "select image"), 121)
-                    }
-
-                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                        val builder = AlertDialog.Builder(this@user.context)
-                        builder.setTitle("Need Permission")
-                            .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
-                            .setPositiveButton("go to settings", DialogInterface.OnClickListener
-                            { dialog, id ->
-
-                                val inte = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                val uri = Uri.fromParts("package", context?.packageName, null)
-                                inte.setData(uri)
-                                startActivityForResult(inte, 102)
-
-                            })
-                            .setNegativeButton(
-                                "cancel",
-                                DialogInterface.OnClickListener { dialog, which ->
-
-                                    dialog.cancel()
-                                })
-
-                        builder.show()
-
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        permission: PermissionRequest?,
-                        token: PermissionToken?,
-                    ) {
-                        token?.continuePermissionRequest()
-                    }
-                }).check()
-
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_PICK
+            startActivityForResult(Intent.createChooser(intent, "select image"), 121)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
 
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (data != null) {
