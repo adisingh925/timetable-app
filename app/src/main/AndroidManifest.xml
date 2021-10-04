@@ -10,13 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Navigation">
-        <activity android:name="com.app1.navigation.loginactivity"></activity>
         <activity android:name="com.app1.navigation.monday_data" />
         <activity android:name="com.app1.navigation.passwordresetactivity" />
         <activity android:name="com.app1.navigation.registeractivity" />
         <activity android:name="com.app1.navigation.MainActivity" />
 
-        <activity android:name="com.app1.navigation.animation">
+        <activity android:name="com.app1.navigation.loginactivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

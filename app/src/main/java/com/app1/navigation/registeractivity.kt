@@ -64,7 +64,7 @@ class registeractivity : AppCompatActivity()
                         if (task.isSuccessful)
                         {
 
-                            val data = hashMapOf("name" to name.text.toString(),"email" to email.text.toString(),"status" to "false")
+                            val data = hashMapOf("name" to name.text.toString(),"email" to email.text.toString(),"status" to "false", "imagepath" to null)
                             db.collection("userdata").document("userdata").collection(auth.uid!!).document("login credentials").set(data)
 
                             db.collection("userdata").document("explore").get().addOnSuccessListener()

@@ -32,23 +32,17 @@ import com.karumi.dexter.listener.single.PermissionListener
 class user : Fragment() {
 
     var db = Firebase.firestore
+
     var auth = Firebase.auth
 
     val storageref = FirebaseStorage.getInstance().reference
 
     lateinit var uri:Uri
 
-    lateinit var uuri:String
-
     lateinit var imageview:ImageView
-
-    lateinit var imageview1:ImageView
-
-    lateinit var king:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -57,46 +51,54 @@ class user : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
 
     override fun onStart() {
         super.onStart()
 
-        val x = view?.findViewById<TextView>(R.id.textview)
-
-        val y = view?.findViewById<TextView>(R.id.textview1)
-        val hh = view?.findViewById<TextView>(R.id.textview5)
+        val name = view?.findViewById<TextView>(R.id.textview1)
+        val email = view?.findViewById<TextView>(R.id.textview5)
 
         imageview = view?.findViewById(R.id.imageview)!!
 
         val z = db.collection("userdata").document("userdata").collection(auth.uid!!)
             .document("login credentials")
+
         z.get().addOnSuccessListener { document ->
             if (document.exists()) {
-                if (y != null) {
-                    y.text = document.getString("name")
+                if (name != null) {
+                    name.text = document.getString("name")
 
                 }
-                if (hh != null) {
-                    hh.text = document.getString("email")
+                if (email != null) {
+                    email.text = document.getString("email")
                 }
 
-                val uuri = document.getString("imgpath")
+                val url1 = document.getString("imgpath")
 
-                Glide
-                    .with(this)
-                    .load(uuri)
-                    .circleCrop()
-                    .placeholder(R.drawable.placeholder)
-                    .into(imageview)
+                if(url1 == null)
+                {
+                    Glide
+                        .with(this)
+                        .load("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png")
+                        .circleCrop()
+                        .into(imageview)
+                }
+                else
+                {
+                    Glide
+                        .with(this)
+                        .load(url1)
+                        .circleCrop()
+                        .into(imageview)
+                }
             }
         }
 
-        val ff = view?.findViewById<TextView>(R.id.textview3)
-        if (ff != null) {
-            ff.text = auth.uid!!
+        val userid = view?.findViewById<TextView>(R.id.textview3)
+        if (userid != null) {
+            userid.text = auth.uid!!
         }
 
         imageview?.setOnClickListener()
@@ -115,24 +117,23 @@ class user : Fragment() {
             if (data != null) {
                 uri = data.data!!
 
-                var syst = System.currentTimeMillis()
-                var imgref = storageref.child("$auth.uid!!/$syst.pdf")
+                var imgref = storageref.child("$auth.uid!!/profile_pic.pdf")
+
                 imgref.putFile(uri).addOnSuccessListener()
                 {
                     Toast.makeText(this@user.context,"Upload Success",Toast.LENGTH_SHORT).show()
 
-                    storageref.child("$auth.uid!!/$syst.pdf").downloadUrl.addOnSuccessListener()
+                    storageref.child("$auth.uid!!/profile_pic.pdf").downloadUrl.addOnSuccessListener()
                     {
                             url ->
+
                         var hmp = hashMapOf("imgpath" to url.toString())
 
                         Glide
                             .with(this)
-                            .load(url.toString())
+                            .load(url)
                             .circleCrop()
-                            .placeholder(R.drawable.placeholder)
                             .into(imageview)
-
 
                         db.collection("userdata").document("userdata").collection(auth.uid!!)
                             .document("login credentials").set(hmp, SetOptions.merge())
@@ -143,11 +144,10 @@ class user : Fragment() {
                             .document("usernames").set(ppt, SetOptions.merge())
 
                     }
+                }.addOnFailureListener()
+                {
+                    Toast.makeText(this@user.context,"Upload Failed",Toast.LENGTH_SHORT).show()
                 }
-                    .addOnFailureListener()
-                    {
-                        Toast.makeText(this@user.context,"Upload Failed",Toast.LENGTH_SHORT).show()
-                    }
             }
         }
     }
