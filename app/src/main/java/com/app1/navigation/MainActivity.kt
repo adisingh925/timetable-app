@@ -104,9 +104,6 @@ class MainActivity : AppCompatActivity() {
         {
             drawerlayout.openDrawer(GravityCompat.START)
         }
-
-        /*val navcontroller = Navigation.findNavController(this, R.id.fragmentContainerView)
-        NavigationUI.setupWithNavController(Navigationview, navcontroller)*/
     }
 
     override fun onBackPressed() {
@@ -116,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         }
         else
         {
-            super.onBackPressed()
+
         }
     }
 
